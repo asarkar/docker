@@ -1,6 +1,6 @@
 eval "$(docker-machine env default)"
 
-docker ps -a
+docker ps -al
 
 ##### Save changes to existing container
 docker commit CONTAINER_ID IMAGE_NAME
