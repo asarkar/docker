@@ -1,0 +1,19 @@
+--- tomcat-users.xml	2015-10-07 18:28:14.000000000 +0000
++++ tomcat-users.xml-copy	2015-11-17 09:48:32.039204393 +0000
+@@ -29,11 +29,8 @@
+   and thus are ignored when reading this file. Do not forget to remove
+   <!.. ..> that surrounds them.
+ -->
+-<!--
+-  <role rolename="tomcat"/>
+-  <role rolename="role1"/>
+-  <user username="tomcat" password="tomcat" roles="tomcat"/>
+-  <user username="both" password="tomcat" roles="tomcat,role1"/>
+-  <user username="role1" password="tomcat" roles="role1"/>
+--->
++  <role rolename="manager-script"/>
++  <role rolename="manager-gui"/>
++  <user username="gui" password="gui" roles="manager-gui"/>
++  <user username="script" password="script" roles="manager-script"/>
+ </tomcat-users>
+
