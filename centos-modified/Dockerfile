@@ -35,7 +35,7 @@ chown -RL tomcat:dev $CATALINA_HOME
 
 ENV JAVA_HOME /usr/java/default
 
-# only a hint. still need -P at runtime
+# only a hint. still needs -p at runtime
 EXPOSE 8080
 
 CMD ["supervisord", "--nodaemon", "-c", "/etc/supervisord.conf"]
