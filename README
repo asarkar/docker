@@ -3,18 +3,18 @@ eval "$(docker-machine env default)"
 docker ps -al
 
 ##### Save changes to existing container
-docker commit CONTAINER_ID IMAGE_NAME
+docker commit <CONTAINER ID> <IMAGE_NAME>
 
-docker rm -f CONTAINER_ID
+docker rm -f <CONTAINER ID>
 
-docker rmi -f IMAGE_ID
+docker rmi -f <IMAGE ID>
 
-docker build -t REPOSITORY_NAME/IMAGE_NAME:TAG_NAME DOCKERFILE_PATH
+docker build -t <REPOSITORY NAME>/<IMAGE NAME>:<TAG NAME> <DOCKERFILE PATH>
 
-docker exec -ti CONTAINER_ID /bin/bash
+docker exec -ti <CONTAINER ID> /bin/bash
 
 ##### IP of the docker host. This is needed to use port forwarding as localhost etc does not work
 docker-machine ip default
 
-docker run -ti -p HOST_PORT:CONTAINER_PORT -v HOST_DIR:CONTAINER_DIR CONTAINER_ID
+docker run -ti -p <HOST PORT>:<CONTAINER PORT> -v <HOST DIR>:<CONTAINER DIR> <CONTAINER ID>
 
