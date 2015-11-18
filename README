@@ -17,4 +17,3 @@ docker exec -ti <CONTAINER ID> /bin/bash
 docker-machine ip default
 
 docker run -ti -p <HOST PORT>:<CONTAINER PORT> -v <HOST DIR>:<CONTAINER DIR> <CONTAINER ID>
-

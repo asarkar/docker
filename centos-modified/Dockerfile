@@ -1,5 +1,4 @@
 FROM centos:latest
-MAINTAINER "Abhijit Sarkar" "https://github.com/abhijitsarkar"
 
 ENV CATALINA_HOME /opt/tomcat
 ENV JAVA_HOME /usr/java/default
