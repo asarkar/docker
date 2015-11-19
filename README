@@ -11,9 +11,9 @@ docker rmi -f <IMAGE ID>
 
 docker build -t <REPOSITORY NAME>/<IMAGE NAME>:<TAG NAME> <DOCKERFILE PATH>
 
-docker exec -ti <CONTAINER ID> /bin/bash
+docker exec -it <CONTAINER ID> /bin/bash
 
 ##### IP of the docker host. This is needed to use port forwarding as localhost etc does not work
 docker-machine ip default
 
-docker run -ti -p <HOST PORT>:<CONTAINER PORT> -v <HOST DIR>:<CONTAINER DIR> <CONTAINER ID>
+docker run -it -p <HOST PORT>:<CONTAINER PORT> -v <HOST DIR>:<CONTAINER DIR> <CONTAINER ID>

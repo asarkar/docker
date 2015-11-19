@@ -1,5 +1,6 @@
 FROM abhijitsarkar/jdk8
 
+ENV DEBIAN_FRONTEND noninteractive
 ENV CATALINA_HOME /opt/tomcat
 ENV TOMCAT_VERSION 8.0.28
 
