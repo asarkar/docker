@@ -1,0 +1,14 @@
+web:
+  build: .
+  ports:
+    - "8080:8080"
+  links:
+    - db
+  volumes:
+    - /Users/Abhijit/Workspace/docker/tomcat:/var/log/tomcat
+db:
+  image: abhijitsarkar/mysql5
+  ports:
+      - "3306:3306"
+  volumes:
+      - /Users/Abhijit/Workspace/docker/mqsql:/var/log/mysql

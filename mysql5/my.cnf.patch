@@ -1,22 +1,33 @@
---- my.cnf.bkp	2015-11-18 20:45:16.000000000 -0800
-+++ my.cnf	2015-11-18 20:53:11.000000000 -0800
-@@ -29,6 +29,8 @@
+--- my.cnf.orig	2015-11-19 20:57:42.000000000 -0800
++++ my.cnf	2015-11-19 21:07:44.000000000 -0800
+@@ -29,6 +29,15 @@
  nice		= 0
  
  [mysqld]
++# Caching creates entries with localhost which is problematic
 +skip-host-cache
++
++# Don't bother
 +skip-name-resolve
++
++# Lower case all tables names on storage and lookup
++lower_case_table_names = 1
++
  user		= mysql
  pid-file	= /var/run/mysqld/mysqld.pid
  socket		= /var/run/mysqld/mysqld.sock
-@@ -41,9 +43,9 @@
+@@ -39,11 +48,11 @@
+ lc-messages-dir	= /usr/share/mysql
+ explicit_defaults_for_timestamp
  
- # Instead of skip-networking the default is now to listen only on
- # localhost which is more compatible and is not less secure.
+-# Instead of skip-networking the default is now to listen only on
+-# localhost which is more compatible and is not less secure.
 -bind-address	= 127.0.0.1
++# Allow access from outside the container.
 +# bind-address	= 127.0.0.1
  
 -log-error	= /var/log/mysql/error.log
++# Don't bother
 +# log-error	= /var/log/mysql/error.log
  
  # Disabling symbolic-links is recommended to prevent assorted security risks
