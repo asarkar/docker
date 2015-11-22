@@ -1,6 +1,5 @@
 package name.abhijitsarkar.javaee.hello;
 
-import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.web.servlet.config.annotation.PathMatchConfigurer;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter;
@@ -9,26 +8,19 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter
  * @author Abhijit Sarkar
  */
 @Configuration
-/* Use @EnableWebMvc for complete control or just @Bean to supplement WebMvcAutoConfiguration */
-public class WebMvcConfig {
-    @Bean
-    WebMvcConfigurerAdapter configureWebMvc() {
-        return new CustomWebMvcConfigurer();
-    }
-
-    private static class CustomWebMvcConfigurer extends WebMvcConfigurerAdapter {
-        /* Don't map URLs with suffixes to handlers. Give a chance to ResourceHttpRequestHandler.
+/* Use @EnableWebMvc for complete control which turns off WebMvcAutoConfiguration */
+public class WebMvcConfig extends WebMvcConfigurerAdapter {
+    /* Don't map URLs with suffixes to handlers. Give a chance to ResourceHttpRequestHandler.
         * This is usually not necessary if static resources don't map to URLs for which, if the suffix is stripped off,
         * some handler exists. For example, if /abc maps to a handler and /abc.html to a static page, with suffix
         * pattern matching enabled, the request maps to the handler, not to the ResourceHttpRequestHandler.
         *
         * c.f. WebMvcProperties.staticPathPattern and ResourceProperties for more configuration options.
-        * */
-        @Override
-        public void configurePathMatch(PathMatchConfigurer configurer) {
-            super.configurePathMatch(configurer);
+        */
+    @Override
+    public void configurePathMatch(PathMatchConfigurer configurer) {
+        super.configurePathMatch(configurer);
 
-            configurer.setUseSuffixPatternMatch(false);
-        }
+        configurer.setUseSuffixPatternMatch(false);
     }
 }
