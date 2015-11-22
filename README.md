@@ -34,7 +34,7 @@ curl -v -T build/libs/hello-world-0.0.1-SNAPSHOT.war -u script:script "http://19
 
 # Useful References
 
-httng Inside Docker Containers with OS X](pharnisc.github.io/2015/09/16/developing-inside-docker-containers-with-osx.html)
+[Developing Inside Docker Containers with OS X](pharnisc.github.io/2015/09/16/developing-inside-docker-containers-with-osx.html)
 
 [Docker - Beginner's tutorial](https://blog.talpor.com/2015/01/docker-beginners-tutorial)
 
