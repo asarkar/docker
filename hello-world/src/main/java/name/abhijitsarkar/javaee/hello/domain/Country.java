@@ -7,6 +7,9 @@ import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
+/**
+ * @author Abhijit Sarkar
+ */
 @Data
 @Entity
 public class Country {

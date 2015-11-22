@@ -4,7 +4,9 @@ ENV DEBIAN_FRONTEND noninteractive
 ENV DATADIR /var/lib/mysql
 ENV INIT_SCRIPT /usr/sbin/init.sh
 
-RUN apt-get update
+RUN apt-get update && \
+  apt-get -y upgrade && \
+  apt-get -y install lsb-release
 
 RUN getent group dev || groupadd dev && \
 	useradd -g dev mysql

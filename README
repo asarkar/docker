@@ -26,8 +26,6 @@ docker run -it -p 8080:8080 -v /Users/Abhijit/Workspace/docker/tomcat:/var/log/t
 
 docker run -it -p 3306:3306 -v /Users/Abhijit/Workspace/docker/mqsql:/var/log/mysql <CONTAINER ID>
 
+docker run -it -p 3306:3306 -e ROOT_PASSWORD=changeit <CONTAINER ID> bash
+
 curl -v -T build/libs/hello-world-0.0.1-SNAPSHOT.war -u script:script "http://192.168.99.100:8080/manager/text/deploy?path=/hello&update=true"
-
-curl -v -H "Accept: application/json" -X GET "http://192.168.99.100:8080/hello/cities"
-
-curl -v -u script:script -X GET "http://192.168.99.100:8080/manager/text/undeploy?path=/hello"

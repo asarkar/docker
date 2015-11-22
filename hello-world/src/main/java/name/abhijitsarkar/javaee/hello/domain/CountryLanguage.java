@@ -7,6 +7,9 @@ import javax.persistence.MapsId;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
+/**
+ * @author Abhijit Sarkar
+ */
 @Entity
 @Table(name = "countrylanguage")
 public class CountryLanguage {
@@ -18,11 +21,11 @@ public class CountryLanguage {
     @JoinColumn(name = "countrycode", referencedColumnName = "code")
     private Country country;
 
-    public CountryLanguageId getId() {
-        return id;
+    public String getLanguage() {
+        return id.getLanguage();
     }
 
-    public Country getCountry() {
-        return country;
+    public String getCountry() {
+        return country.getName();
     }
 }

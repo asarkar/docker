@@ -6,9 +6,15 @@ web:
     - db
   volumes:
     - /Users/Abhijit/Workspace/docker/tomcat:/var/log/tomcat
+  environment:
+      # Note no dash at the beginning of line for a key-value pair.
+      RETRY_INTERVAL: 2
 db:
   image: abhijitsarkar/mysql5
   ports:
       - "3306:3306"
   volumes:
       - /Users/Abhijit/Workspace/docker/mqsql:/var/log/mysql
+  environment:
+      # Note no dash at the beginning of line for a key-value pair.
+      USER: "hellouser:secret"

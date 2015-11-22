@@ -8,6 +8,9 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.OneToOne;
 
+/**
+ * @author Abhijit Sarkar
+ */
 @Data
 @Entity
 public class City {
@@ -24,4 +27,8 @@ public class City {
 
     @Column
     private long population;
+
+    public String getCountry() {
+        return country.getName();
+    }
 }

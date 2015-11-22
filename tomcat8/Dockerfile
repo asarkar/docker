@@ -4,6 +4,9 @@ ENV DEBIAN_FRONTEND noninteractive
 ENV CATALINA_HOME /opt/tomcat
 ENV TOMCAT_VERSION 8.0.28
 
+RUN apt-get update && \
+  apt-get -y upgrade
+
 WORKDIR /opt
 
 RUN getent group dev || groupadd dev && \
@@ -19,6 +22,7 @@ ADD ./tomcatd.conf /etc/supervisor/conf.d
 
 ADD ./tomcat-users.xml.patch /tmp/tomcat-users.xml.patch
 
+# Can override at runtime by volume mapping
 RUN patch -d $CATALINA_HOME/conf -p0 -u < /tmp/tomcat-users.xml.patch && \
 	rm -f /tmp/tomcat-users.xml.patch
 
