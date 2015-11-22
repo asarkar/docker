@@ -5,7 +5,6 @@ ENV DATADIR /var/lib/mysql
 ENV INIT_SCRIPT /usr/sbin/init.sh
 
 RUN apt-get update && \
-  apt-get -y upgrade && \
   apt-get -y install lsb-release
 
 RUN getent group dev || groupadd dev && \
@@ -13,8 +12,8 @@ RUN getent group dev || groupadd dev && \
 
 RUN apt-key adv --keyserver ha.pool.sks-keyservers.net --recv-keys A4A9406876FCBD3C456770C88C718D3B5072E1F5 && \
 	echo "deb http://repo.mysql.com/apt/debian/ $(lsb_release -sc) mysql-5.7" > /etc/apt/sources.list.d/mysql.list && \
-	apt-get install -y --force-yes patch && \
-	apt-get update
+	apt-get update && \
+	apt-get install -y patch
 
 # install mysql and delete preconfigured database
 RUN echo "mysql-community-server mysql-community-server/root-pass password ''" | debconf-set-selections && \

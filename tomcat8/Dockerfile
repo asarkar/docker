@@ -5,14 +5,12 @@ ENV CATALINA_HOME /opt/tomcat
 ENV TOMCAT_VERSION 8.0.28
 
 RUN apt-get update && \
-  apt-get -y upgrade
+  apt-get install -y patch
 
 WORKDIR /opt
 
 RUN getent group dev || groupadd dev && \
 	useradd -g dev tomcat
-
-RUN apt-get install -y patch
 
 RUN curl -sSL http://www.us.apache.org/dist/tomcat/tomcat-8/v$TOMCAT_VERSION/bin/apache-tomcat-$TOMCAT_VERSION.tar.gz | tar xz && \
 	find apache-tomcat-$TOMCAT_VERSION/bin -type f -name "*.bat" -exec rm -f {} + && \

@@ -5,8 +5,7 @@ ENV JAVA_HOME /opt/java
 
 WORKDIR /opt
 
-RUN apt-get update && \
-  apt-get -y upgrade
+RUN apt-get update
 
 RUN curl -sSL -b "oraclelicense=a" http://download.oracle.com/otn-pub/java/jdk/8u66-b17/jdk-8u66-linux-x64.tar.gz | tar xz && \
 	find . -maxdepth 1 -type d -name "*jdk*" -exec ln -sf {} $JAVA_HOME \; && \
