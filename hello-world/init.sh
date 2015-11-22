@@ -28,7 +28,7 @@ while [ $COUNTER -gt 0 -a $STATUS -gt 0 ]; do
 done
 
 if [ $STATUS -gt 0 ]; then
-    printf "[WARN] Failed to connect to the database after %d seconds.\n", $((NUM_RETRY * RETRY_INTERVAL))
+    printf "[ERROR] Failed to connect to the database after %d seconds.\n" $((NUM_RETRY * RETRY_INTERVAL))
 
     exit 1
 fi
