@@ -17,7 +17,7 @@ IFS=':' read -ra FIELDS <<< "$USER"
 USERNAME=${FIELDS[0]}
 PASSWORD=${FIELDS[1]}
 
-DEFAULT_USERNAME=testuser
+DEFAULT_USERNAME=appuser
 DEFAULT_PASSWORD=changeit
 
 if [ -z "$USERNAME" ]; then
