@@ -1,6 +1,17 @@
 --- my.cnf.orig	2015-11-19 20:57:42.000000000 -0800
-+++ my.cnf	2015-11-19 21:07:44.000000000 -0800
-@@ -29,6 +29,15 @@
++++ my.cnf	2015-11-23 20:45:44.000000000 -0800
+@@ -22,6 +22,10 @@
+ [client]
+ port		= 3306
+ socket		= /var/run/mysqld/mysqld.sock
++default-character-set = utf8mb4
++
++[mysql]
++default-character-set = utf8mb4
+ 
+ [mysqld_safe]
+ pid-file	= /var/run/mysqld/mysqld.pid
+@@ -29,6 +33,21 @@
  nice		= 0
  
  [mysqld]
@@ -13,10 +24,16 @@
 +# Lower case all tables names on storage and lookup
 +lower_case_table_names = 1
 +
++# Set charset to utf8mb4. Apparently 'utf8' is not UTF-8 on MySQL.
++# https://mathiasbynens.be/notes/mysql-utf8mb4
++collation-server = utf8mb4_unicode_ci
++init-connect = 'SET NAMES utf8mb4'
++character-set-server = utf8mb4
++
  user		= mysql
  pid-file	= /var/run/mysqld/mysqld.pid
  socket		= /var/run/mysqld/mysqld.sock
-@@ -39,11 +48,11 @@
+@@ -39,11 +58,11 @@
  lc-messages-dir	= /usr/share/mysql
  explicit_defaults_for_timestamp
  
@@ -24,7 +41,7 @@
 -# localhost which is more compatible and is not less secure.
 -bind-address	= 127.0.0.1
 +# Allow access from outside the container.
-+# bind-address	= 127.0.0.1
++# bind-address = 127.0.0.1
  
 -log-error	= /var/log/mysql/error.log
 +# Don't bother
