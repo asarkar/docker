@@ -1,7 +1,5 @@
 #!/bin/bash
 
-DATAFILE=/tmp/world.sql
-
 /usr/sbin/mysqld &
 sleep 5
 
@@ -21,13 +19,13 @@ DEFAULT_USERNAME=appuser
 DEFAULT_PASSWORD=changeit
 
 if [ -z "$USERNAME" ]; then
-	printf "[WARN] Username not provided. Defaulting to '$DEFAULT_USERNAME'.\n"
+	printf "[WARN] Username not provided. Defaulting to '%s'.\n" "$DEFAULT_USERNAME"
 fi
 if [ -z "$PASSWORD" ]; then
-	printf "[WARN] User password not set. Defaulting to '$DEFAULT_PASSWORD'.\n"
+	printf "[WARN] User password not set. Defaulting to '%s'.\n" "$DEFAULT_PASSWORD"
 fi
 if [ -z "$ROOT_PASSWORD" ]; then
-	printf "[WARN] root password not set. Defaulting to '$DEFAULT_PASSWORD'.\n"
+	printf "[WARN] root password not set. Defaulting to '%s'.\n" "$DEFAULT_PASSWORD"
 fi
 
 USERNAME=${USERNAME:-$(echo $DEFAULT_USERNAME)}
@@ -36,11 +34,23 @@ ROOT_PASSWORD=${ROOT_PASSWORD:-$(echo $DEFAULT_PASSWORD)}
 
 echo "CREATE USER IF NOT EXISTS '$USERNAME'@'%' IDENTIFIED BY '$PASSWORD';" | mysql
 
-echo "GRANT SELECT ON world.* TO '$USERNAME'@'%'; FLUSH PRIVILEGES;" | mysql
+DATAFILE="$1"
 
-mysql -s < $DATAFILE
+if [[ "$DATAFILE" =~ .*\.sql$ ]] && [ -f "$DATAFILE" ]; then
+	SCHEMA=$(basename "$DATAFILE" .sql)
 
-rm -f $DATAFILE
+	printf "[INFO] Importing datafile: %s into schema: '%s'.\n" "$DATAFILE" "$SCHEMA"
+
+	# - is necessary if tab if used before end of heredoc string (EOF)
+	mysql -s <<-EOF
+		DROP SCHEMA IF EXISTS $SCHEMA;
+		CREATE SCHEMA $SCHEMA;
+		GRANT SELECT ON $SCHEMA.* TO '$USERNAME'@'%';
+		FLUSH PRIVILEGES;
+	EOF
+
+	mysql -s $SCHEMA < "$DATAFILE"
+fi
 
 echo "ALTER USER 'root'@'%' IDENTIFIED BY '$ROOT_PASSWORD';" | mysql
 

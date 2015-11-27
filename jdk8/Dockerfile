@@ -1,7 +1,6 @@
 FROM abhijitsarkar/debian:supervisor
 
-ENV DEBIAN_FRONTEND noninteractive
-ENV JAVA_HOME /opt/java
+ENV DEBIAN_FRONTEND=noninteractive JAVA_HOME=/opt/java
 
 WORKDIR /opt
 

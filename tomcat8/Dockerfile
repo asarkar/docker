@@ -1,8 +1,6 @@
 FROM abhijitsarkar/jdk8
 
-ENV DEBIAN_FRONTEND noninteractive
-ENV CATALINA_HOME /opt/tomcat
-ENV TOMCAT_VERSION 8.0.28
+ENV DEBIAN_FRONTEND=noninteractive CATALINA_HOME=/opt/tomcat TOMCAT_VERSION=8.0.28
 
 RUN apt-get update && \
   apt-get install -y patch

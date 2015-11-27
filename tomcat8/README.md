@@ -1,0 +1,1 @@
+`curl -v -T build/libs/hello-world-0.0.1-SNAPSHOT.war -u script:script "http://192.168.99.100:8080/manager/text/deploy?path=/hello&update=true"`

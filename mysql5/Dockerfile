@@ -1,8 +1,6 @@
 FROM abhijitsarkar/debian:supervisor
 
-ENV DEBIAN_FRONTEND noninteractive
-ENV DATADIR /var/lib/mysql
-ENV INIT_SCRIPT /usr/sbin/init.sh
+ENV DEBIAN_FRONTEND=noninteractive DATADIR=/var/lib/mysql INIT_SCRIPT=/usr/sbin/init.sh
 
 RUN apt-get update && \
   apt-get -y install lsb-release
@@ -30,8 +28,10 @@ ADD ./my.cnf.patch /tmp/my.cnf.patch
 RUN patch -d /etc/mysql -p0 -u < /tmp/my.cnf.patch && \
 	rm -f /tmp/my.cnf.patch
 
-ADD ./world.sql /tmp/world.sql
+ADD ./world.sql /usr/local/share/mysql/world.sql
 ADD ./init.sh $INIT_SCRIPT
+
+CMD ["/usr/local/share/mysql/world.sql"]
 
 RUN chmod +x $INIT_SCRIPT
 

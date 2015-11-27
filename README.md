@@ -1,57 +1,47 @@
 # Docker Commands
 
-eval "$(docker-machine env default)"
+`eval "$(docker-machine env default)"`
 
-docker ps -al
+`docker ps -al`
 
-docker commit <CONTAINER ID> <IMAGE_NAME>
+`docker commit <CONTAINER ID> <IMAGE ID>`
 
-docker rm -f <CONTAINER ID>
+`docker rm -f <CONTAINER ID>`
 
-docker rmi -f <IMAGE ID>
+`docker rmi -f <IMAGE ID>`
 
-docker build -t <REPOSITORY NAME>/<IMAGE NAME>:<TAG NAME> <DOCKERFILE PATH>
+`docker build -t <REPOSITORY NAME>/<IMAGE NAME>:<TAG NAME> <DOCKERFILE PATH>`
 
-docker exec -it <CONTAINER ID> /bin/bash
+`docker run -it -p <HOST PORT>:<CONTAINER PORT> -v <HOST DIR>:<CONTAINER DIR> -e <KEU>=<VALUE> <CONTAINER ID>`
 
-docker-machine ip default
+`docker exec -it <CONTAINER ID> /bin/bash`
 
-docker run -it -p <HOST PORT>:<CONTAINER PORT> -v <HOST DIR>:<CONTAINER DIR> <CONTAINER ID>
+`docker-machine ip <MACHINE NAME>`
 
-docker-machine restart default
+`docker-machine restart <MACHINE NAME>`
 
-docker inspect <CONTAINER ID> | grep "\"IPAddress\"" | head -1 | awk '{print $2}'
+`docker inspect <CONTAINER ID> | grep "\"IPAddress\"" | head -1 | awk '{print $2}'`
 
-docker run -it -p 8080:8080 -v /Users/Abhijit/Workspace/docker/tomcat:/var/log/tomcat8 <CONTAINER ID>
+# Mount Host Directory from OS X:
 
-docker run -it -p 3306:3306 -v /Users/Abhijit/Workspace/docker/mqsql:/var/log/mysql <CONTAINER ID>
+`vboxmanage showvminfo default`
 
-docker run -it -p 3306:3306 -e ROOT_PASSWORD=changeit <CONTAINER ID> bash
+From host:
+`vboxmanage sharedfolder add <MACHINE NAME> --name <NAME OF SHARED DIR> --hostpath <PATH TO SHARED DIR> --transient`
 
-curl -v -T build/libs/hello-world-0.0.1-SNAPSHOT.war -u script:script "http://192.168.99.100:8080/manager/text/deploy?path=/hello&update=true"
+`docker-machine ssh <MACHINE NAME>`
 
-### Back up existing MySQL database:
+In Docker machine VM:
 
-`mysqldump -h OLDHOST -u OLDUSER -pOLDPASS --default-character-set=utf8mb4 --result-file=backup.sql OLDDATABASE`
+`mkdir <PATH TO SHARED DIR>`
 
-### Import into new MySQL database:
+`sudo mount -t vboxsf -o uid=<DOCKER UID>,gid=<DOCKER GUID> <NAME OF SHARED DIR> <PATH TO SHARED DIR>`
 
-`mysql -h NEWHOST -u NEWUSER -pNEWPASS --default-character-set=utf8mb4 NEWDATABASE`
-`SET names='utf8mb4'`
-`SOURCE backup.sql`
+`sudo umount <PATH TO SHARED DIR>
 
-The arguments `NEW*` are dereived from the database URL mysql://NEWUSER:NEWPASS@NEWHOST:3306/NEWDATABASE
+### Create a Patch:
 
-### Connect to remote MySQL server:
-
-`mysql -h NEWHOST -u NEWUSER -pNEWPASS [NEWDATABASE]`
-
-### Show charset related variables:
-
-SHOW VARIABLES WHERE Variable_name LIKE 'character\_set\_%' OR Variable_name LIKE 'collation%';
-
-### Create a patch:
-diff -abBu <ORIGINAL FILE> <MODIFIED FILE>
+`diff -abBu <ORIGINAL FILE> <MODIFIED FILE>`
 
 # Useful References
 
