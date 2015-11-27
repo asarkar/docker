@@ -1,0 +1,13 @@
+--- cassandra-env.sh.orig	2015-11-27 02:08:43.000000000 -0800
++++ cassandra-env.sh	2015-11-27 02:14:46.000000000 -0800
+@@ -136,8 +136,8 @@
+ # times. If in doubt, and if you do not particularly want to tweak, go with
+ # 100 MB per physical CPU core.
+ 
+-#MAX_HEAP_SIZE="4G"
+-#HEAP_NEWSIZE="800M"
++MAX_HEAP_SIZE="256M"
++HEAP_NEWSIZE="50M"
+ 
+ # Set this to control the amount of arenas per-thread in glibc
+ #export MALLOC_ARENA_MAX=4

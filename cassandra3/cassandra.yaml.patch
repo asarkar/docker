@@ -1,0 +1,94 @@
+--- cassandra.yaml.orig	2015-11-27 02:08:54.000000000 -0800
++++ cassandra.yaml	2015-11-27 03:01:18.000000000 -0800
+@@ -186,7 +186,7 @@
+ # stop_commit: shutdown the commit log, letting writes collect but
+ #              continuing to service reads, as in pre-2.0.5 Cassandra
+ # ignore: ignore fatal errors and let the batches fail
+-commit_failure_policy: stop
++commit_failure_policy: ignore
+ 
+ # Maximum size of the key cache in memory.
+ #
+@@ -200,7 +200,7 @@
+ # NOTE: if you reduce the size, you may not get you hottest keys loaded on startup.
+ #
+ # Default value is empty to make it "auto" (min(5% of Heap (in MB), 100MB)). Set to 0 to disable key cache.
+-key_cache_size_in_mb:
++key_cache_size_in_mb: 0
+ 
+ # Duration in seconds after which Cassandra should
+ # save the key cache. Caches are saved to saved_caches_directory as
+@@ -261,7 +261,7 @@
+ #
+ # Default value is empty to make it "auto" (min(2.5% of Heap (in MB), 50MB)). Set to 0 to disable counter cache.
+ # NOTE: if you perform counter deletes and rely on low gcgs, you should disable the counter cache.
+-counter_cache_size_in_mb:
++counter_cache_size_in_mb: 0
+ 
+ # Duration in seconds after which Cassandra should
+ # save the counter cache (keys only). Caches are saved to saved_caches_directory as
+@@ -311,7 +311,7 @@
+ # NOTE: If max_mutation_size_in_kb is set explicitly then commitlog_segment_size_in_mb must
+ # be set to at least twice the size of max_mutation_size_in_kb / 1024
+ #
+-commitlog_segment_size_in_mb: 32
++commitlog_segment_size_in_mb: 2
+ 
+ # Compression to apply to the commit log. If omitted, the commit log
+ # will be written uncompressed.  LZ4, Snappy, and Deflate compressors
+@@ -345,13 +345,13 @@
+ # On the other hand, since writes are almost never IO bound, the ideal
+ # number of "concurrent_writes" is dependent on the number of cores in
+ # your system; (8 * number_of_cores) is a good rule of thumb.
+-concurrent_reads: 32
+-concurrent_writes: 32
+-concurrent_counter_writes: 32
++concurrent_reads: 4
++concurrent_writes: 4
++concurrent_counter_writes: 4
+ 
+ # For materialized view writes, as there is a read involved, so this should
+ # be limited by the less of concurrent reads or concurrent writes.
+-concurrent_materialized_view_writes: 32
++concurrent_materialized_view_writes: 4
+ 
+ # Maximum memory to use for pooling sstable buffers. Defaults to the smaller
+ # of 1/4 of heap or 512MB. This pool is allocated off-heap, so is in addition
+@@ -562,7 +562,7 @@
+ #
+ # Alternatively,  can provide your own RPC server by providing the fully-qualified class name
+ # of an o.a.c.t.TServerFactory that can create an instance of it.
+-rpc_server_type: sync
++rpc_server_type: hsha
+ 
+ # Uncomment rpc_min|max_thread to set request pool size limits.
+ #
+@@ -574,8 +574,8 @@
+ # encouraged to set a maximum that makes sense for you in production, but do keep in mind that
+ # rpc_max_threads represents the maximum number of client requests this server may execute concurrently.
+ #
+-# rpc_min_threads: 16
+-# rpc_max_threads: 2048
++rpc_min_threads: 1
++rpc_max_threads: 2
+ 
+ # uncomment to set socket buffer sizes on rpc connections
+ # rpc_send_buff_size_in_bytes:
+@@ -659,7 +659,7 @@
+ # 
+ # If your data directories are backed by SSD, you should increase this
+ # to the number of cores.
+-#concurrent_compactors: 1
++concurrent_compactors: 1
+ 
+ # Throttles compaction to the given total throughput across the entire
+ # system. The faster you insert data, the faster you need to compact in
+@@ -667,7 +667,7 @@
+ # 16 to 32 times the rate you are inserting data is more than sufficient.
+ # Setting this to 0 disables throttling. Note that this account for all types
+ # of compaction, including validation compaction.
+-compaction_throughput_mb_per_sec: 16
++compaction_throughput_mb_per_sec: 0
+ 
+ # Log a warning when compacting partitions larger than this value
+ compaction_large_partition_warning_threshold_mb: 100

@@ -37,7 +37,7 @@ In Docker machine VM:
 
 `sudo mount -t vboxsf -o uid=<DOCKER UID>,gid=<DOCKER GUID> <NAME OF SHARED DIR> <PATH TO SHARED DIR>`
 
-`sudo umount <PATH TO SHARED DIR>
+`sudo umount <PATH TO SHARED DIR>`
 
 ### Create a Patch:
 
