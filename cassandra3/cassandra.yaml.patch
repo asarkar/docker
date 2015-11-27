@@ -1,14 +1,5 @@
 --- cassandra.yaml.orig	2015-11-27 02:08:54.000000000 -0800
-+++ cassandra.yaml	2015-11-27 03:01:18.000000000 -0800
-@@ -186,7 +186,7 @@
- # stop_commit: shutdown the commit log, letting writes collect but
- #              continuing to service reads, as in pre-2.0.5 Cassandra
- # ignore: ignore fatal errors and let the batches fail
--commit_failure_policy: stop
-+commit_failure_policy: ignore
- 
- # Maximum size of the key cache in memory.
- #
++++ cassandra.yaml	2015-11-27 03:20:01.000000000 -0800
 @@ -200,7 +200,7 @@
  # NOTE: if you reduce the size, you may not get you hottest keys loaded on startup.
  #

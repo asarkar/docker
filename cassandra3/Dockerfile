@@ -1,6 +1,6 @@
 FROM abhijitsarkar/jdk8
 
-ENV DEBIAN_FRONTEND=noninteractive CONF_DIR=/etc/cassandra WORK_DIR=/var/lib/cassandra LOG_DIR=/var/log/cassandra
+ENV DEBIAN_FRONTEND=noninteractive CONF_DIR=/etc/cassandra CASSANDRA_HOME=/var/lib/cassandra LOG_DIR=/var/log/cassandra
 
 RUN getent group dev || groupadd dev && \
 	useradd -g dev cassandra && \
@@ -10,11 +10,11 @@ RUN getent group dev || groupadd dev && \
 RUN apt-get -y update && \
 	apt-get -y install cassandra && \
 	apt-get install -y patch && \
-	rm -rf $WORK_DIR/data/system/* && \
+	rm -rf $CASSANDRA_HOMER/data/system/* && \
 	rm -rf /var/lib/apt/lists/* && \
 	rm -f /etc/init.d/cassandra && \
 	chown -RL cassandra:dev $CONF_DIR && \
-	chown -RL cassandra:dev $WORK_DIR && \
+	chown -RL cassandra:dev $CASSANDRA_HOME && \
 	chown -RL cassandra:dev $LOG_DIR
 
 ADD ./*.patch /tmp/
