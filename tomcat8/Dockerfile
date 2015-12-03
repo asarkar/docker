@@ -10,7 +10,7 @@ WORKDIR /opt
 RUN getent group dev || groupadd dev && \
 	useradd -g dev tomcat
 
-RUN curl -sSL http://www.us.apache.org/dist/tomcat/tomcat-8/v$TOMCAT_VERSION/bin/apache-tomcat-$TOMCAT_VERSION.tar.gz | tar xz && \
+RUN curl -sSL http://archive.apache.org/dist/tomcat/tomcat-8/v$TOMCAT_VERSION/bin/apache-tomcat-$TOMCAT_VERSION.tar.gz | tar xz && \
 	find apache-tomcat-$TOMCAT_VERSION/bin -type f -name "*.bat" -exec rm -f {} + && \
 	ln -sf apache-tomcat-$TOMCAT_VERSION $CATALINA_HOME
 
