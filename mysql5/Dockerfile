@@ -23,13 +23,13 @@ RUN echo "mysql-community-server mysql-community-server/root-pass password ''" |
 	mysqld --initialize-insecure=on --datadir=$DATADIR && \
 	chown -RL mysql:dev $DATADIR
 
-ADD ./my.cnf.patch /tmp/my.cnf.patch
+ADD my.cnf.patch /tmp/my.cnf.patch
 
 RUN patch -d /etc/mysql -p0 -u < /tmp/my.cnf.patch && \
 	rm -f /tmp/my.cnf.patch
 
-ADD ./world.sql /usr/local/share/mysql/world.sql
-ADD ./init.sh $INIT_SCRIPT
+ADD world.sql /usr/local/share/mysql/world.sql
+ADD init.sh $INIT_SCRIPT
 
 CMD ["/usr/local/share/mysql/world.sql"]
 
@@ -39,6 +39,6 @@ VOLUME $DATADIR
 
 EXPOSE 3306
 
-ADD ./mysqld.conf /etc/supervisor/conf.d
+ADD mysqld.conf /etc/supervisor/conf.d
 
 ENTRYPOINT ["/usr/sbin/init.sh"]
