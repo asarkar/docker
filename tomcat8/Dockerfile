@@ -1,6 +1,6 @@
 FROM abhijitsarkar/docker:jdk8
 
-ENV DEBIAN_FRONTEND=noninteractive CATALINA_HOME=/opt/tomcat TOMCAT_VERSION=8.0.28
+ENV DEBIAN_FRONTEND=noninteractive CATALINA_HOME=/opt/tomcat TOMCAT_VERSION=8.0.28 CWD=$PWD
 
 RUN apt-get update && \
   apt-get install -y patch
@@ -14,9 +14,9 @@ RUN curl -sSL http://archive.apache.org/dist/tomcat/tomcat-8/v$TOMCAT_VERSION/bi
 	find apache-tomcat-$TOMCAT_VERSION/bin -type f -name "*.bat" -exec rm -f {} + && \
 	ln -sf apache-tomcat-$TOMCAT_VERSION $CATALINA_HOME
 
-ADD tomcatd.conf /etc/supervisor/conf.d
+ADD $CWD/tomcatd.conf /etc/supervisor/conf.d
 
-ADD tomcat-users.xml.patch /tmp/tomcat-users.xml.patch
+ADD $CWD/tomcat-users.xml.patch /tmp/tomcat-users.xml.patch
 
 # Can override at runtime by volume mapping
 RUN patch -d $CATALINA_HOME/conf -p0 -u < /tmp/tomcat-users.xml.patch && \
