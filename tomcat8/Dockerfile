@@ -1,4 +1,4 @@
-FROM abhijitsarkar/jdk8
+FROM abhijitsarkar/docker:jdk8
 
 ENV DEBIAN_FRONTEND=noninteractive CATALINA_HOME=/opt/tomcat TOMCAT_VERSION=8.0.28
 

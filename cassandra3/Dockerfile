@@ -1,4 +1,4 @@
-FROM abhijitsarkar/jdk8
+FROM abhijitsarkar/docker:jdk8
 
 ENV DEBIAN_FRONTEND=noninteractive CONF_DIR=/etc/cassandra CASSANDRA_HOME=/var/lib/cassandra LOG_DIR=/var/log/cassandra
 

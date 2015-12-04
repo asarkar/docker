@@ -1,4 +1,4 @@
-FROM abhijitsarkar/debian:supervisor
+FROM abhijitsarkar/docker:debian-supervisor
 
 ENV DEBIAN_FRONTEND=noninteractive JAVA_HOME=/opt/java
 

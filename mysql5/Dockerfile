@@ -1,4 +1,4 @@
-FROM abhijitsarkar/debian:supervisor
+FROM abhijitsarkar/docker:debian-supervisor
 
 ENV DEBIAN_FRONTEND=noninteractive DATADIR=/var/lib/mysql INIT_SCRIPT=/usr/sbin/init.sh
 
