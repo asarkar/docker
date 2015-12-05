@@ -39,6 +39,6 @@ VOLUME $DATADIR
 
 EXPOSE 3306
 
-ADD ./mysqld.conf /etc/supervisor/conf.d
+ADD ./mysqld.conf /etc/supervisor/conf.d/
 
 ENTRYPOINT ["/usr/sbin/init.sh"]

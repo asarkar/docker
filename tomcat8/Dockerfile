@@ -14,7 +14,7 @@ RUN curl -sSL http://archive.apache.org/dist/tomcat/tomcat-8/v$TOMCAT_VERSION/bi
 	find apache-tomcat-$TOMCAT_VERSION/bin -type f -name "*.bat" -exec rm -f {} + && \
 	ln -sf apache-tomcat-$TOMCAT_VERSION $CATALINA_HOME
 
-ADD ./tomcatd.conf /etc/supervisor/conf.d
+ADD ./tomcatd.conf /etc/supervisor/conf.d/
 
 ADD ./tomcat-users.xml.patch /tmp/tomcat-users.xml.patch
 

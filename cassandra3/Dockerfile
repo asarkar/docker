@@ -23,7 +23,7 @@ RUN patch -d $CONF_DIR -p0 -u < /tmp/cassandra-env.sh.patch && \
 	patch -d $CONF_DIR -p0 -u < /tmp/cassandra.yaml.patch && \
 	rm -f /tmp/*.patch
 
-ADD ./cassandrad.conf /etc/supervisor/conf.d
+ADD ./cassandrad.conf /etc/supervisor/conf.d/
 
 # 7000: intra-node communication
 # 7001: TLS intra-node communication
