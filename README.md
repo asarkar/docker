@@ -1,4 +1,5 @@
 # Docker Commands
+`docker-machine create -d "virtualbox" --virtualbox-disk-size "4000" default`
 
 `eval "$(docker-machine env default)"`
 
@@ -21,6 +22,8 @@
 `docker-machine restart <MACHINE NAME>`
 
 `docker inspect <CONTAINER ID> | grep "\"IPAddress\"" | head -1 | awk '{print $2}'`
+
+`docker run -d -v ~/Workspace/docker/couchbase:/opt/couchbase/var -p 8091:8091 couchbase/server[:community]`
 
 # Mount Host Directory from OS X:
 

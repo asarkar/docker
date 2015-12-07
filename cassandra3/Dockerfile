@@ -1,6 +1,6 @@
 FROM abhijitsarkar/docker:jdk8
 
-ENV DEBIAN_FRONTEND=noninteractive CONF_DIR=/etc/cassandra CASSANDRA_HOME=/var/lib/cassandra LOG_DIR=/var/log/cassandra
+ENV CONF_DIR=/etc/cassandra CASSANDRA_HOME=/var/lib/cassandra LOG_DIR=/var/log/cassandra
 
 RUN getent group dev || groupadd dev && \
 	useradd -g dev cassandra && \
@@ -8,8 +8,7 @@ RUN getent group dev || groupadd dev && \
 	curl -L https://debian.datastax.com/debian/repo_key | apt-key add -
 
 RUN apt-get -y update && \
-	apt-get -y install cassandra && \
-	apt-get install -y patch && \
+	apt-get -y install cassandra patch && \
 	rm -rf $CASSANDRA_HOMER/data/system/* && \
 	rm -rf /var/lib/apt/lists/* && \
 	rm -f /etc/init.d/cassandra && \

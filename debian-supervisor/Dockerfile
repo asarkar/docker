@@ -9,9 +9,7 @@ RUN debconf-set-selections /etc/debconf_preseed && \
 	apt-get install -y locales && \	
 	dpkg-reconfigure tzdata && \
     dpkg-reconfigure locales && \
-	apt-get install -y curl && \
-	# supervisor
-	apt-get -y install python-setuptools && \
+	apt-get install -y curl python-setuptools && \
   	easy_install supervisor
 
 RUN mkdir -p /var/log/supervisor && \

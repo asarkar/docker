@@ -1,6 +1,6 @@
 FROM abhijitsarkar/docker:jdk8
 
-ENV DEBIAN_FRONTEND=noninteractive CATALINA_HOME=/opt/tomcat TOMCAT_VERSION=8.0.28
+ENV CATALINA_HOME=/opt/tomcat TOMCAT_VERSION=8.0.28
 
 RUN apt-get update && \
   apt-get install -y patch
@@ -8,7 +8,7 @@ RUN apt-get update && \
 WORKDIR /opt
 
 RUN getent group dev || groupadd dev && \
-	useradd -g dev tomcat
+	useradd -M -g dev tomcat
 
 RUN curl -sSL http://archive.apache.org/dist/tomcat/tomcat-8/v$TOMCAT_VERSION/bin/apache-tomcat-$TOMCAT_VERSION.tar.gz | tar xz && \
 	find apache-tomcat-$TOMCAT_VERSION/bin -type f -name "*.bat" -exec rm -f {} + && \

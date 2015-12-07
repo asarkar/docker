@@ -1,12 +1,12 @@
 FROM abhijitsarkar/docker:debian-supervisor
 
-ENV DEBIAN_FRONTEND=noninteractive DATADIR=/var/lib/mysql INIT_SCRIPT=/usr/sbin/init.sh
+ENV DATADIR=/var/lib/mysql INIT_SCRIPT=/usr/sbin/init.sh
 
 RUN apt-get update && \
   apt-get -y install lsb-release
 
 RUN getent group dev || groupadd dev && \
-	useradd -g dev mysql
+	useradd -M -g dev mysql
 
 RUN apt-key adv --keyserver ha.pool.sks-keyservers.net --recv-keys A4A9406876FCBD3C456770C88C718D3B5072E1F5 && \
 	echo "deb http://repo.mysql.com/apt/debian/ $(lsb_release -sc) mysql-5.7" > /etc/apt/sources.list.d/mysql.list && \
