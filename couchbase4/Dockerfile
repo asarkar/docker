@@ -11,9 +11,7 @@ RUN apt-get update && \
 
 WORKDIR $CB_HOME/var/lib
 
-RUN $CB_HOME/etc/couchbase_init.d stop && \
-	rm -f /etc/init.d/couchbase-server && \
-	mkdir -p moxi couchbase/config couchbase/data couchbase/stats couchbase/logs /var/log/couchbase \
+RUN mkdir -p moxi couchbase/config couchbase/data couchbase/stats couchbase/logs \
 	&& chown -R couchbase $CB_HOME/var
 
 EXPOSE 8091 8092 8093 11207 11210 11211 18091 18092
