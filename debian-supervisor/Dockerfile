@@ -1,6 +1,6 @@
 FROM debian:jessie
 
-ENV DEBIAN_FRONTEND=noninteractive LANG=en_US.UTF-8 LANGUAGE=en_US.UTF-8 LC_ALL=en_US.UTF-8
+ENV DEBIAN_FRONTEND=noninteractive LANG=en_US.UTF-8 LANGUAGE=en_US.UTF-8 LC_ALL=en_US.UTF-8 TZ='America/Los_Angeles'
 
 ADD ./debconf_preseed /etc/debconf_preseed
 
