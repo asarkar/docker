@@ -57,23 +57,17 @@ curl -sSL -w "%{http_code} %{url_effective}\\n" -d username=$CB_USERNAME -d pass
 printf "\n[INFO] Configuring memory quota.\n"
 curl -sSL -w "%{http_code} %{url_effective}\\n" -u $CB_USERNAME:$CB_PASSWORD -d memoryQuota=256 -d indexMemoryQuota=256 $ENDPOINT/pools/default
 
-if [ -n "$SAMPLE_BUCKETS" ]; then
-	IFS=',' read -ra BUCKETS <<< "$SAMPLE_BUCKETS"
+# if [ -n "$SAMPLE_BUCKETS" ]; then
+#	IFS=',' read -ra BUCKETS <<< "$SAMPLE_BUCKETS"
 
-	for bucket in "${BUCKETS[@]}"; do
-		printf "\n[INFO] Installing %s.\n" "$bucket"
-		curl -sSL -w "%{http_code} %{url_effective}\\n" -u $CB_USERNAME:$CB_PASSWORD --data-ascii '["'"$bucket"'"]' $ENDPOINT/sampleBuckets/install
-	done
-fi
+#	for bucket in "${BUCKETS[@]}"; do
+#		printf "\n[INFO] Installing %s.\n" "$bucket"
+#		curl -sSL -w "%{http_code} %{url_effective}\\n" -u $CB_USERNAME:$CB_PASSWORD --data-ascii '["'"$bucket"'"]' $ENDPOINT/sampleBuckets/install
+#	done
+# fi
 
-tail -f <(cat <<EOF
+supervisord -c /etc/supervisord.conf
 
-**************************************
-	Couchbase server is running...
-**************************************
-
-EOF
-)
 
 
 

@@ -7,7 +7,7 @@ db:
     - 8092:8092
     - 8093:8093
     - 11210:11210
-  environment:
+  # environment:
     # Can be a comma-separated list, possible values being combinations of gamesim-sample, beer-sample, travel-sample
-    - SAMPLE_BUCKETS=travel-sample
+    # - SAMPLE_BUCKETS=travel-sample
   

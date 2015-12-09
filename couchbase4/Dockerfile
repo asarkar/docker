@@ -17,7 +17,7 @@ RUN mkdir -p moxi couchbase/config couchbase/data couchbase/stats couchbase/logs
 EXPOSE 8091 8092 8093 11207 11210 11211 18091 18092
 VOLUME $CB_HOME/var
 
-# ADD ./couchbased.conf /etc/supervisor/conf.d/
+ADD ./couchbased.conf /etc/supervisor/conf.d/
 ADD ./init.sh $INIT_SCRIPT
 
 RUN chmod +x $INIT_SCRIPT
