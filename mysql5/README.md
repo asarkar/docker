@@ -17,7 +17,7 @@ Example:
 ### Import into new MySQL database:
 
 `mysql -h NEWHOST -u NEWUSER -pNEWPASS --default-character-set=utf8mb4 NEWDATABASE`
-`SET names='utf8mb4'`
+`SET names 'utf8mb4'`
 `SOURCE backup.sql`
 
 The arguments `NEW*` are dereived from the database URL mysql://NEWUSER:NEWPASS@NEWHOST:3306/NEWDATABASE
