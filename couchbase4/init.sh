@@ -51,11 +51,14 @@ CB_PASSWORD=${CB_PASSWORD:-$(echo $DEFAULT_PASSWORD)}
 
 ENDPOINT=http://127.0.0.1:8091
 
-printf "\n[INFO] Setting up admin credentials.\n"
-curl -sSL -w "%{http_code} %{url_effective}\\n" -d username=$CB_USERNAME -d password=$CB_PASSWORD -d port=8091 $ENDPOINT/settings/web
+printf "\n[INFO] Configuring memory quota\n"
+curl -sSL -w "%{http_code} %{url_effective}\\n" -d memoryQuota=300 -d indexMemoryQuota=300 $ENDPOINT/pools/default
 
-printf "\n[INFO] Configuring memory quota.\n"
-curl -sSL -w "%{http_code} %{url_effective}\\n" -u $CB_USERNAME:$CB_PASSWORD -d memoryQuota=256 -d indexMemoryQuota=256 $ENDPOINT/pools/default
+printf "\n[INFO] Setting up index and query services\n"
+curl -sSL -w "%{http_code} %{url_effective}\\n" --data-urlencode "services=kv,n1ql,index" $ENDPOINT/node/controller/setupServices
+
+printf "\n[INFO] Setting up admin credentials\n"
+curl -sSL -w "%{http_code} %{url_effective}\\n" -d username=$CB_USERNAME -d password=$CB_PASSWORD -d port=8091 $ENDPOINT/settings/web
 
 # if [ -n "$SAMPLE_BUCKETS" ]; then
 #	IFS=',' read -ra BUCKETS <<< "$SAMPLE_BUCKETS"
@@ -65,6 +68,8 @@ curl -sSL -w "%{http_code} %{url_effective}\\n" -u $CB_USERNAME:$CB_PASSWORD -d 
 #		curl -sSL -w "%{http_code} %{url_effective}\\n" -u $CB_USERNAME:$CB_PASSWORD --data-ascii '["'"$bucket"'"]' $ENDPOINT/sampleBuckets/install
 #	done
 # fi
+
+echo
 
 supervisord -c /etc/supervisord.conf
 
