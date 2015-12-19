@@ -1,7 +1,5 @@
 db:
-  container_name: "couchbase4"
   build: .
-  # image: couchbase/server:community
   ports:
     - 8091:8091
     - 8092:8092

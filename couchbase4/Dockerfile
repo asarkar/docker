@@ -1,13 +1,13 @@
 FROM abhijitsarkar/docker:debian-supervisor
 
-ENV CB_HOME=/opt/couchbase INIT_SCRIPT=/usr/sbin/init.sh COUCHBASE_PKG=couchbase-server-community_4.0.0-debian7_amd64.deb
+ENV CB_HOME=/opt/couchbase CB_VERSION=4.1.0 INIT_SCRIPT=/usr/sbin/init.sh
 
 RUN apt-get update && \
 	getent group dev || groupadd dev && \
 	useradd -M -u 1000 -g dev couchbase && \
-	curl -sSL -O http://packages.couchbase.com/releases/4.0.0/$COUCHBASE_PKG && \
-	dpkg -i $COUCHBASE_PKG && \
-	rm -f $COUCHBASE_PKG
+	curl -sSL -O http://packages.couchbase.com/releases/$CB_VERSION/couchbase-server-enterprise_$CB_VERSION-debian7_amd64.deb && \
+	find * -maxdepth 0 -name "couchbase*.deb" -type f -exec dpkg -i {} + && \
+	rm -f "couchbase*.deb"
 
 WORKDIR $CB_HOME/var/lib
 

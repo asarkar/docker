@@ -1,5 +1,5 @@
 # Docker Commands
-`docker-machine create -d "virtualbox" --virtualbox-disk-size "4000" default`
+`docker-machine create -d "virtualbox" --virtualbox-disk-size "10000" default`
 
 `eval "$(docker-machine env default)"`
 
