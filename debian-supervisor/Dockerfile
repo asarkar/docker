@@ -1,4 +1,4 @@
-FROM abhijitsarkar/docker:debian-basic
+FROM abhijitsarkar/docker:debian-base
 
 RUN apt-get update && \
 	apt-get install -y python-setuptools && \

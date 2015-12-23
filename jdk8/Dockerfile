@@ -1,4 +1,4 @@
-FROM abhijitsarkar/docker:debian-basic
+FROM abhijitsarkar/docker:debian-base
 
 ENV JAVA_HOME=/opt/java
 
