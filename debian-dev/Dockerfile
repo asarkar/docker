@@ -23,4 +23,9 @@ RUN curl -sSL -O https://services.gradle.org/distributions/gradle-$GRADLE_VERSIO
 	ln -sf $(pwd)/maven/bin/mvn /usr/local/bin/mvn && \
 	find maven/bin -type f -name "*.cmd" -exec rm -f {} +
 
+WORKDIR /home/$USERNAME
+
+USER $USERNAME
+
 CMD ["/bin/bash"]
+
