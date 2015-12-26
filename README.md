@@ -1,7 +1,7 @@
 # Docker Commands
-`docker-machine create -d "virtualbox" --virtualbox-disk-size "10000" default`
+`docker-machine create --driver virtualbox --virtualbox-disk-size 10000 --virtualbox-memory 2048 --virtualbox-cpu-count 4 dev`
 
-`eval "$(docker-machine env default)"`
+`eval "$(docker-machine env dev)"`
 
 `docker ps -al`
 
@@ -25,9 +25,12 @@
 
 `docker run -d -v ~/Workspace/docker/couchbase:/opt/couchbase/var -p 8091:8091 couchbase/server[:community]`
 
+### Recursively stop and remove all containers
+`docker ps -a | awk '!/CONTAINER/ {system("docker stop "$1); system("docker rm -f "$1)}'`
+
 # Mount Host Directory from OS X:
 
-`vboxmanage showvminfo default`
+`vboxmanage showvminfo dev`
 
 From host:
 `vboxmanage sharedfolder add <MACHINE NAME> --name <NAME OF SHARED DIR> --hostpath <PATH TO SHARED DIR> --transient`
