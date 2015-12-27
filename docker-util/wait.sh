@@ -14,8 +14,6 @@ OPTIONS:
   -n      Number of attempts. Optional. Defaults to $DEFAULT_NUM_RETRIES.
   -i      Interval between the attempts. Optional. Defaults to $DEFAULT_RETRY_INTERVAL.
 END
-
-exit $1
 }
 
 while getopts ":n::i::h" opt; do
@@ -23,9 +21,9 @@ while getopts ":n::i::h" opt; do
     n) NUM_RETRIES=$OPTARG;;
     i) RETRY_INTERVAL=$OPTARG;;
     h) usage 0;;
-    \?) echo "[ERROR] Unknown option: -$OPTARG" >&2; usage 1;;
-    :) echo "[ERROR] Missing option argument for -$OPTARG" >&2; usage 1;;
-    *) echo "[ERROR] Unimplemented option: -$OPTARG" >&2; usage 1;;
+    \?) echo "[ERROR] Unknown option: -$OPTARG" >&2; usage; exit 1;;
+    :) echo "[ERROR] Missing option argument for -$OPTARG" >&2; usage; exit 1;;
+    *) echo "[ERROR] Unimplemented option: -$OPTARG" >&2; usage; exit 1;;
   esac
 done
 
@@ -36,7 +34,7 @@ RETRY_INTERVAL=${RETRY_INTERVAL:-$(echo $DEFAULT_RETRY_INTERVAL)}
 DEPENDENCIES=$(echo "$@" | sed -e 's/\s\+//g')
 
 if [ -z "$DEPENDENCIES" ]; then
-    usage 1
+    usage; exit 1
 fi
 
 IFS=',' read -a LIST <<< "$DEPENDENCIES"
@@ -46,15 +44,15 @@ for DEPENDENCY in "${LIST[@]}"; do
   IFS=':' read -a DEP <<< "$DEPENDENCY"
   LEN=${#DEP[@]}
 
-  if [ $LEN -lt 2 ]; then
-    usage 1
+  if ((LEN < 2)); then
+    usage; exit 1
   fi
 
   DEP_ADDR=${DEP[0]}
   DEP_PORT=${DEP[1]}
 
   if [ -z $DEP_ADDR ] || [ -z $DEP_PORT ]; then
-    usage 1
+    usage; exit 1
   fi
 
   nc -w5 -z $DEP_ADDR $DEP_PORT
