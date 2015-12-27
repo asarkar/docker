@@ -29,7 +29,7 @@ while getopts ":n::i::h" opt; do
   esac
 done
 
-shift $((OPTIND -1))
+shift $((OPTIND - 1))
 
 NUM_RETRIES=${NUM_RETRIES:-$(echo $DEFAULT_NUM_RETRIES)}
 RETRY_INTERVAL=${RETRY_INTERVAL:-$(echo $DEFAULT_RETRY_INTERVAL)}
@@ -53,24 +53,28 @@ for DEPENDENCY in "${LIST[@]}"; do
   DEP_ADDR=${DEP[0]}
   DEP_PORT=${DEP[1]}
 
+  if [ -z $DEP_ADDR ] || [ -z $DEP_PORT ]; then
+    usage 1
+  fi
+
   nc -w5 -z $DEP_ADDR $DEP_PORT
 
   STATUS=$?
 
   COUNTER=$NUM_RETRIES
 
-  while [ $COUNTER -gt 0 -a $STATUS -gt 0 ]; do
+  while ((COUNTER > 0)) && ((STATUS > 0)); do
       printf "[INFO] Retrying connection to dependency (%s:%d).\n" $DEP_ADDR $DEP_PORT
-      nc -w5 -z $DEP_ADDR $DEP_PORT
+      nc -w5 -z $DEP_ADDR $DEP_PORT > /dev/null 2>&1
 
       STATUS=$?
-      COUNTER=$((COUNTER - 1))
+      ((COUNTER--))
 
       sleep $RETRY_INTERVAL
   done
 
-  if [ $STATUS -gt 0 ]; then
-      printf "[ERROR] Failed to connect to dependency (%s:%d) after %d seconds.\n" $DEP_ADDR $DEP_PORT $((NUM_RETRIES * RETRY_INTERVAL))
+  if ((STATUS > 0)); then
+      printf "[ERROR] Failed to connect to dependency (%s:%d) after %d seconds.\n" $DEP_ADDR $DEP_PORT "$((NUM_RETRIES * RETRY_INTERVAL))"
 
       exit 1
   else
