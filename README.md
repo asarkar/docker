@@ -28,6 +28,9 @@
 ### Recursively stop and remove all containers:
 `docker ps -a | awk '!/CONTAINER/ {system("docker stop "$1); system("docker rm -f "$1)}'`
 
+### Delete orphan images:
+`docker images | awk '$1~/none/ {system("docker rmi -f "$3)}'`
+
 ### Free disk space:
 `docker run --rm -v /var/run/docker.sock:/var/run/docker.sock:ro -v /var/lib/docker:/var/lib/docker martin/docker-cleanup-volumes`
 
