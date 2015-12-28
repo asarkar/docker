@@ -25,8 +25,11 @@
 
 `docker run -d -v ~/Workspace/docker/couchbase:/opt/couchbase/var -p 8091:8091 couchbase/server[:community]`
 
-### Recursively stop and remove all containers
+### Recursively stop and remove all containers:
 `docker ps -a | awk '!/CONTAINER/ {system("docker stop "$1); system("docker rm -f "$1)}'`
+
+### Free disk space:
+`docker run --rm -v /var/run/docker.sock:/var/run/docker.sock:ro -v /var/lib/docker:/var/lib/docker martin/docker-cleanup-volumes`
 
 # Mount Host Directory from OS X:
 
