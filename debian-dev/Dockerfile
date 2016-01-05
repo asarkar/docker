@@ -3,7 +3,7 @@ FROM abhijitsarkar/docker:jdk8
 ENV GRADLE_VERSION=2.10 MAVEN_VERSION=3.3.9 USERNAME=dev
 
 RUN apt-get update && \
-	apt-get -y install sudo vim git git-review unzip && \
+	apt-get -y install sudo vim git git-review unzip subversion && \
 	getent group $USERNAME || groupadd $USERNAME && \
 	useradd -g $USERNAME -G sudo -s /bin/bash $USERNAME && \
 	echo "$USERNAME:$USERNAME" | chpasswd && \
