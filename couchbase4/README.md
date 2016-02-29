@@ -8,3 +8,6 @@
 
 ##### Install travel-sample Bucket
 `curl -sSL -w "%{http_code} %{url_effective}\\n" -u admin:admin123 --data-ascii '["travel-sample"]' http://HOSTNAME:8091/sampleBuckets/install`
+
+##### Drop index
+`DROP INDEX `travel-sample`.`def_airportname` USING GSI`
