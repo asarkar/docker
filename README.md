@@ -1,7 +1,18 @@
-# Docker Commands
-`docker-machine create --driver virtualbox --virtualbox-disk-size 10000 --virtualbox-memory 2048 --virtualbox-cpu-count 4 dev`
+# Docker Machine Commands
+`docker-machine create --driver virtualbox --virtualbox-disk-size 10000 --virtualbox-memory 2048 --virtualbox-cpu-count 4 <MACHINE NAME>`
 
-`eval "$(docker-machine env dev)"`
+`eval "$(docker-machine env <MACHINE NAME>)"`
+
+### Push to insecure registry:
+   * Log into the docker machine `docker-machine ssh <MACHINE NAME>`
+   * Edit or create the file `/var/lib/boot2docker/profile` and add the following line: `--insecure-registry <REGISTRY HOST>:<REGISTRY PORT>`
+   * Restart Docker daemon: `sudo /etc/init.d/docker restart`
+
+`docker-machine ip <MACHINE NAME>`
+
+`docker-machine restart <MACHINE NAME>`
+
+# Docker Commands
 
 `docker ps -al`
 
@@ -17,10 +28,6 @@
 
 `docker exec -it <CONTAINER ID> /bin/bash`
 
-`docker-machine ip <MACHINE NAME>`
-
-`docker-machine restart <MACHINE NAME>`
-
 `docker inspect <CONTAINER ID> | grep "\"IPAddress\"" | head -1 | awk '{print $2}'`
 
 `docker run -d -v ~/Workspace/docker/couchbase:/opt/couchbase/var -p 8091:8091 couchbase/server[:community]`
@@ -31,7 +38,7 @@
 ### Delete orphan images:
 `docker images | awk '$1~/none/ {system("docker rmi -f "$3)}'`
 
-### Free disk space:
+### Free local disk space:
 `docker run --rm -v /var/run/docker.sock:/var/run/docker.sock:ro -v /var/lib/docker:/var/lib/docker martin/docker-cleanup-volumes`
 
 # Mount Host Directory from OS X:
