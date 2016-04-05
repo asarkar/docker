@@ -6,7 +6,7 @@
 ### Push to insecure registry:
    * Log into the docker machine `docker-machine ssh <MACHINE NAME>`
    * Change to root `sudo -i`
-   * Edit or create the file `/var/lib/boot2docker/profile` and add the following line: `--insecure-registry <REGISTRY HOST>:<REGISTRY PORT>`
+   * Edit or create the file `/var/lib/boot2docker/profile` and add the following line to `EXTRA_ARGS`: `--insecure-registry <REGISTRY HOST>:<REGISTRY PORT>`
    * Restart Docker daemon: `sudo /etc/init.d/docker restart`
 
 `docker-machine ip <MACHINE NAME>`
