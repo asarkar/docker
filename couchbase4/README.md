@@ -20,7 +20,7 @@ DROP INDEX `travel-sample`.`def_airportname` USING GSI
 ##### Allocate RAM to a bucket
 `curl -X POST -u <ADMIN>:<PASSWORD> -d ramQuotaMB=<VALUE> http://<HOSTNAME>:<PORT>/pools/default/buckets/<BUCKET NAME>`
 
-References:
+### References:
 
 [Setting memory quota](http://docs.couchbase.com/admin/admin/REST/rest-node-memory-quota.html)
 
