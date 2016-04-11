@@ -11,8 +11,9 @@
 
 ```
 curl -u <USERNAME:PASSWORD> \
--d name=<BUCKET NAME> -d ramQuotaMB=300 -d authType=sasl \
--d replicaNumber=0 -d replicaIndex=0 -d proxyPort=0 -d saslPassword=changeit \
+-d name=<BUCKET NAME> -d ramQuotaMB=300 -d bucketType=couchbase \
+-d replicaNumber=0 -d replicaIndex=0 -d proxyPort=0 \
+-d authType=sasl -d saslPassword=changeit \
 http://<HOSTNAME:PORT>/pools/default/buckets
 ```
 
