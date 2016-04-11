@@ -2,19 +2,30 @@
 
 #### Bucket Operations
 
-##### Create or Edit Bucket
+##### Create Bucket
 
+```
+curl -v -X POST -u <USERNAME:PASSWORD> \
+-d 'name=<BUCKET NAME>' -d 'ramQuotaMB=100' -d 'bucketType=couchbase' \
+-d 'replicaNumber=0' -d 'replicaIndex=0' -d 'proxyPort=0' \
+-d 'flushEnabled=1'
+-d 'authType=sasl' -d 'saslPassword=changeit' \
+http://<HOSTNAME:PORT>/pools/default/buckets
+```
+
+##### Edit Bucket
 > When editing bucket properties, be sure to specify all bucket properties.
 > If a bucket property is not specified (whether or not you are changing the existing value),
 > Couchbase Server may reset the property to the default.
 > Even if you do not intend to change a certain property, re-specify the existing value to avoid this behavior.
 
 ```
-curl -u <USERNAME:PASSWORD> \
--d name=<BUCKET NAME> -d ramQuotaMB=300 -d bucketType=couchbase \
--d replicaNumber=0 -d replicaIndex=0 -d proxyPort=0 \
--d authType=sasl -d saslPassword=changeit \
-http://<HOSTNAME:PORT>/pools/default/buckets
+curl -v -X POST -u <USERNAME:PASSWORD> \
+-d 'ramQuotaMB=100' -d 'bucketType=couchbase' \
+-d 'replicaNumber=0' -d 'replicaIndex=0' -d 'proxyPort=0' \
+-d 'flushEnabled=1'
+-d 'authType=sasl' -d 'saslPassword=changeit' \
+http://<HOSTNAME:PORT>/pools/default/buckets/<BUCKET NAME>
 ```
 
 ##### Delete Bucket
@@ -29,17 +40,19 @@ http://<HOSTNAME:PORT>/pools/default/buckets
 ##### Install travel-sample Bucket
 `curl -sSL -w "%{http_code} %{url_effective}\\n" -u <USERNAME:PASSWORD>  --data-ascii '["travel-sample"]' http://<HOSTNAME:PORT>/sampleBuckets/install`
 
-##### Allocate RAM to a bucket
+##### Allocate RAM to a Bucket
 `curl -X POST -u <ADMIN>:<PASSWORD> -d ramQuotaMB=<VALUE> http://<HOSTNAME>:<PORT>/pools/default/buckets/<BUCKET NAME>`
 
 #### Miscellaneous
 
-##### Drop index
+##### Drop Index
 ```
 DROP INDEX `travel-sample`.`def_airportname` USING GSI
 ```
+##### Get Cluster Info
+`curl -u <ADMIN>:<PASSWORD> http://<HOSTNAME>:<PORT>/pools`
 
-##### Allocate RAM to a node
+##### Allocate RAM to a Node
 `curl -X POST -u <ADMIN>:<PASSWORD> -d memoryQuota=<VALUE> http://<HOSTNAME>:<PORT>/pools/default`
 
 
@@ -65,10 +78,12 @@ Create the container with environment variable `INDEX_MEMORY_QUOTA` (in MB)
 
 ### References:
 
-[Create or Edit Bucket](http://docs.couchbase.com/admin/admin/REST/rest-bucket-create.html)
-
-[Setting memory quota](http://docs.couchbase.com/admin/admin/REST/rest-node-memory-quota.html)
-
-[Cluster and Bucket RAM quotas](http://developer.couchbase.com/documentation/server/4.0/architecture/cluster-ram-quotas.html)
+[Create or Edit Bucket](http://developer.couchbase.com/documentation/server/4.1/rest-api/rest-bucket-create.html)
 
 [Changing bucket memory quota](http://developer.couchbase.com/documentation/server/4.1/rest-api/rest-bucket-memory-quota.html)
+
+[Setting index memory quota](http://developer.couchbase.com/documentation/server/4.1/rest-api/rest-index-memory-quota.html)
+
+[Cluster and Bucket RAM quotas](http://developer.couchbase.com/documentation/server/4.1/architecture/cluster-ram-quotas.html)
+
+
