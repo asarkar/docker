@@ -8,7 +8,7 @@
 curl -v -X POST -u <USERNAME:PASSWORD> \
 -d 'name=<BUCKET NAME>' -d 'ramQuotaMB=100' -d 'bucketType=couchbase' \
 -d 'replicaNumber=0' -d 'replicaIndex=0' -d 'proxyPort=0' \
--d 'flushEnabled=1'
+-d 'flushEnabled=1' \
 -d 'authType=sasl' -d 'saslPassword=changeit' \
 http://<HOSTNAME:PORT>/pools/default/buckets
 ```
@@ -23,7 +23,7 @@ http://<HOSTNAME:PORT>/pools/default/buckets
 curl -v -X POST -u <USERNAME:PASSWORD> \
 -d 'ramQuotaMB=100' -d 'bucketType=couchbase' \
 -d 'replicaNumber=0' -d 'replicaIndex=0' -d 'proxyPort=0' \
--d 'flushEnabled=1'
+-d 'flushEnabled=1' \
 -d 'authType=sasl' -d 'saslPassword=changeit' \
 http://<HOSTNAME:PORT>/pools/default/buckets/<BUCKET NAME>
 ```
