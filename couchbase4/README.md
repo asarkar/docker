@@ -55,6 +55,12 @@ DROP INDEX `travel-sample`.`def_airportname` USING GSI
 ##### Allocate RAM to a Node
 `curl -X POST -u <ADMIN>:<PASSWORD> -d memoryQuota=<VALUE> http://<HOSTNAME>:<PORT>/pools/default`
 
+##### Query By Id
+```
+curl -v -u "<BUCKET NAME>:<BUCKET PASSWORD>" http://<HOSTNAME>:<PORT>/query/service -d 'statement=SELECT * FROM `<BUCKET NAME>` USE KEYS ["<ID>"]'
+```
+Bucket name is the authentication username. Port is usually 8093.
+
 
 ### Prerequisites for Volume Mapping
 1. Comment out the `volumes` section in the docker-compose and run `docker-compose up -d`
