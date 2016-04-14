@@ -10,7 +10,7 @@ curl -v -X POST -u <ADMIN>:<PASSWORD> \
 -d 'replicaNumber=0' -d 'replicaIndex=0' -d 'proxyPort=0' \
 -d 'flushEnabled=1' \
 -d 'authType=sasl' -d 'saslPassword=changeit' \
-http://<HOSTNAME>:<PORT/pools/default/buckets
+http://<HOSTNAME>:<PORT>/pools/default/buckets
 ```
 
 ##### Edit Bucket
@@ -25,20 +25,20 @@ curl -v -X POST -u <ADMIN>:<PASSWORD> \
 -d 'replicaNumber=0' -d 'replicaIndex=0' -d 'proxyPort=0' \
 -d 'flushEnabled=1' \
 -d 'authType=sasl' -d 'saslPassword=changeit' \
-http://<HOSTNAME>:<PORT/pools/default/buckets/<BUCKET NAME>
+http://<HOSTNAME>:<PORT>/pools/default/buckets/<BUCKET NAME>
 ```
 
 ##### Delete Bucket
-`curl -u <ADMIN>:<PASSWORD> -X DELETE http://<HOSTNAME>:<PORT/pools/default/buckets/<BUCKET NAME>`
+`curl -u <ADMIN>:<PASSWORD> -X DELETE http://<HOSTNAME>:<PORT>/pools/default/buckets/<BUCKET NAME>`
 
 ##### Get Bucket Info
-`curl -u <ADMIN>:<PASSWORD> http://<HOSTNAME>:<PORT/pools/default/buckets/<BUCKET NAME>`
+`curl -u <ADMIN>:<PASSWORD> http://<HOSTNAME>:<PORT>/pools/default/buckets/<BUCKET NAME>`
 
 ##### Flush Bucket
-`curl -X POST -u <ADMIN>:<PASSWORD> http://<HOSTNAME>:<PORT/pools/default/buckets/<BUCKET NAME>/controller/doFlush`
+`curl -X POST -u <ADMIN>:<PASSWORD> http://<HOSTNAME>:<PORT>/pools/default/buckets/<BUCKET NAME>/controller/doFlush`
 
 ##### Install travel-sample Bucket
-`curl -sSL -w "%{http_code} %{url_effective}\\n" -u <ADMIN>:<PASSWORD>  --data-ascii '["travel-sample"]' http://<HOSTNAME>:<PORT/sampleBuckets/install`
+`curl -sSL -w "%{http_code} %{url_effective}\\n" -u <ADMIN>:<PASSWORD>  --data-ascii '["travel-sample"]' http://<HOSTNAME>:<PORT>/sampleBuckets/install`
 
 ##### Allocate RAM to a Bucket
 `curl -X POST -u <ADMIN>:<PASSWORD> -d ramQuotaMB=<VALUE> http://<HOSTNAME>:<PORT>/pools/default/buckets/<BUCKET NAME>`
