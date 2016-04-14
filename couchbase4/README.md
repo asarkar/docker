@@ -77,6 +77,9 @@ Create the container with environment variable `MEMORY_QUOTA` (in MB)
 Create the container with environment variable `INDEX_MEMORY_QUOTA` (in MB)
 
 ### References:
+[REST API reference](http://developer.couchbase.com/documentation/server/4.1/rest-api/rest-intro.html)
+
+[REST API endpoint list](http://developer.couchbase.com/documentation/server/4.1/rest-api/rest-endpoints-all.html)
 
 [Create or Edit Bucket](http://developer.couchbase.com/documentation/server/4.1/rest-api/rest-bucket-create.html)
 
