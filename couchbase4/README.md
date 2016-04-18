@@ -31,8 +31,11 @@ http://<HOSTNAME>:<PORT>/pools/default/buckets/<BUCKET NAME>
 ##### Delete Bucket
 `curl -u <ADMIN>:<PASSWORD> -X DELETE http://<HOSTNAME>:<PORT>/pools/default/buckets/<BUCKET NAME>`
 
-##### Get Bucket Info
+##### Get a Bucket Info
 `curl -u <ADMIN>:<PASSWORD> http://<HOSTNAME>:<PORT>/pools/default/buckets/<BUCKET NAME>`
+
+##### Get All Bucket Info
+`curl -u <ADMIN>:<PASSWORD> http://<HOSTNAME>:<PORT>/pools/default/buckets`
 
 ##### Flush Bucket
 `curl -X POST -u <ADMIN>:<PASSWORD> http://<HOSTNAME>:<PORT>/pools/default/buckets/<BUCKET NAME>/controller/doFlush`
@@ -49,8 +52,15 @@ http://<HOSTNAME>:<PORT>/pools/default/buckets/<BUCKET NAME>
 ```
 DROP INDEX `travel-sample`.`def_airportname` USING GSI
 ```
+
+##### Add Node to Cluster
+```
+curl -u <ADMIN>:<PASSWORD> \
+http://<HOSTNAME>:<PORT>/controller/addNode \
+-d hostname=<HOST WHERE THE CLUSTER IS TO BE JOINED> user=<ADMIN> password=<PASSWORD> services=[kv|index|n1ql]
+```
 ##### Get Cluster Info
-`curl -u <ADMIN>:<PASSWORD> http://<HOSTNAME>:<PORT>/pools`
+`curl -u <ADMIN>:<PASSWORD> http://<HOSTNAME>:<PORT>/pools/default`
 
 ##### Allocate RAM to a Node
 `curl -X POST -u <ADMIN>:<PASSWORD> -d memoryQuota=<VALUE> http://<HOSTNAME>:<PORT>/pools/default`
