@@ -5,12 +5,12 @@
 ##### Create Bucket
 
 ```
-curl -v -X POST -u <ADMIN>:<PASSWORD> \
+curl -v -X POST -u <USERNAME:PASSWORD> \
 -d 'name=<BUCKET NAME>' -d 'ramQuotaMB=100' -d 'bucketType=couchbase' \
 -d 'replicaNumber=0' -d 'replicaIndex=0' -d 'proxyPort=0' \
 -d 'flushEnabled=1' \
 -d 'authType=sasl' -d 'saslPassword=changeit' \
-http://<HOSTNAME>:<PORT>/pools/default/buckets
+http://<HOSTNAME:PORT>/pools/default/buckets
 ```
 
 ##### Edit Bucket
@@ -20,31 +20,55 @@ http://<HOSTNAME>:<PORT>/pools/default/buckets
 > Even if you do not intend to change a certain property, re-specify the existing value to avoid this behavior.
 
 ```
-curl -v -X POST -u <ADMIN>:<PASSWORD> \
+curl -v -X POST -u <USERNAME:PASSWORD> \
 -d 'ramQuotaMB=100' -d 'bucketType=couchbase' \
 -d 'replicaNumber=0' -d 'replicaIndex=0' -d 'proxyPort=0' \
 -d 'flushEnabled=1' \
 -d 'authType=sasl' -d 'saslPassword=changeit' \
-http://<HOSTNAME>:<PORT>/pools/default/buckets/<BUCKET NAME>
+http://<HOSTNAME:PORT>/pools/default/buckets/<BUCKET NAME>
 ```
 
 ##### Delete Bucket
-`curl -u <ADMIN>:<PASSWORD> -X DELETE http://<HOSTNAME>:<PORT>/pools/default/buckets/<BUCKET NAME>`
+`curl -u <USERNAME:PASSWORD> -X DELETE http://<HOSTNAME:PORT>/pools/default/buckets/<BUCKET NAME>`
 
 ##### Get a Bucket Info
-`curl -u <ADMIN>:<PASSWORD> http://<HOSTNAME>:<PORT>/pools/default/buckets/<BUCKET NAME>`
+`curl -u <USERNAME:PASSWORD> http://HOSTNAME:8091/pools/default/buckets/<BUCKET NAME>`
 
 ##### Get All Bucket Info
 `curl -u <ADMIN>:<PASSWORD> http://<HOSTNAME>:<PORT>/pools/default/buckets`
 
 ##### Flush Bucket
-`curl -X POST -u <ADMIN>:<PASSWORD> http://<HOSTNAME>:<PORT>/pools/default/buckets/<BUCKET NAME>/controller/doFlush`
+`curl -X POST -u <USERNAME:PASSWORD> http://<HOSTNAME:PORT>/pools/default/buckets/<BUCKET NAME>/controller/doFlush`
 
 ##### Install travel-sample Bucket
-`curl -sSL -w "%{http_code} %{url_effective}\\n" -u <ADMIN>:<PASSWORD>  --data-ascii '["travel-sample"]' http://<HOSTNAME>:<PORT>/sampleBuckets/install`
+`curl -sSL -w "%{http_code} %{url_effective}\\n" -u <USERNAME:PASSWORD>  --data-ascii '["travel-sample"]' http://<HOSTNAME:PORT>/sampleBuckets/install`
 
 ##### Allocate RAM to a Bucket
 `curl -X POST -u <ADMIN>:<PASSWORD> -d ramQuotaMB=<VALUE> http://<HOSTNAME>:<PORT>/pools/default/buckets/<BUCKET NAME>`
+
+#### Cluster Operations
+
+##### Add Node to Cluster
+```
+curl -u <ADMIN>:<PASSWORD> \
+http://<HOSTNAME>:<PORT>/controller/addNode \
+-d hostname=<HOST WHERE THE CLUSTER IS TO BE JOINED> \
+-d user=<ADMIN> -d password=<PASSWORD> -d services=[kv|index|n1ql]
+```
+
+##### Rebalance Cluster (note that the node names need to be discovered by get cluster info call)
+```
+curl <ADMIN>:<PASSWORD> \
+-d 'knownNodes=ns_1@<NODE 1 IP>,ns_1@<NODE 2 IP>' \
+-d 'ejectedNodes=' \
+-X POST http://<HOSTNAME>:<PORT>/controller/rebalance
+```
+
+##### Get Cluster Info
+`curl -u <ADMIN>:<PASSWORD> http://<HOSTNAME>:<PORT>/pools/default`
+
+##### Allocate RAM to a Node
+`curl -X POST -u <ADMIN>:<PASSWORD> -d memoryQuota=<VALUE> http://<HOSTNAME>:<PORT>/pools/default`
 
 #### Miscellaneous
 
@@ -53,35 +77,17 @@ http://<HOSTNAME>:<PORT>/pools/default/buckets/<BUCKET NAME>
 DROP INDEX `travel-sample`.`def_airportname` USING GSI
 ```
 
-##### Add Node to Cluster
-```
-curl -u <ADMIN>:<PASSWORD> \
-http://<HOSTNAME>:<PORT>/controller/addNode \
--d hostname=<HOST WHERE THE CLUSTER IS TO BE JOINED> user=<ADMIN> password=<PASSWORD> services=[kv|index|n1ql]
-```
-##### Get Cluster Info
-`curl -u <ADMIN>:<PASSWORD> http://<HOSTNAME>:<PORT>/pools/default`
-
-##### Allocate RAM to a Node
-`curl -X POST -u <ADMIN>:<PASSWORD> -d memoryQuota=<VALUE> http://<HOSTNAME>:<PORT>/pools/default`
-
-##### Query By Id
-```
-curl -v -u "<BUCKET NAME>:<BUCKET PASSWORD>" http://<HOSTNAME>:<PORT>/query/service -d 'statement=SELECT * FROM `<BUCKET NAME>` USE KEYS ["<ID>"]'
-```
-Bucket name is the authentication username. Port is usually 8093.
-
-
 ### Prerequisites for Volume Mapping
-1. Comment out the `volumes` section in the docker-compose and run `docker-compose up -d`
-2. Find out the container id using `docker ps -a`. Call it `<CONTAINER ID>`
+1. Run 'docker run -d dcs-artifactory.nuance.com:5002/couchbase4'
+2. Find out the container id using 'docker ps -a'. Call it '<CONTAINER ID>'
 3. `mkdir -p /opt/couchbase`
 4. `docker cp <CONTAINER ID>:/opt/couchbase/var /opt/couchbase/var`
 5. `chmod -R 777 /opt/couchbase`
 6. `docker rm -f <CONTAINER ID>`
-7. Uncomment `volumes` section and run `docker-compose up -d`
+7. Run `docker-compose up -d`
+8. 'curl -L http://localhost:8091'
 
-### Runtime Configurations
+### Runtime Options while Creating a Docker Container
 
 ##### Change admin credentials (default is `admin` / `admin123`)
 Create the container with environment variable `USER`. Format is `<USERNAME:PASSWORD>`
@@ -93,9 +99,6 @@ Create the container with environment variable `MEMORY_QUOTA` (in MB)
 Create the container with environment variable `INDEX_MEMORY_QUOTA` (in MB)
 
 ### References:
-[REST API reference](http://developer.couchbase.com/documentation/server/4.1/rest-api/rest-intro.html)
-
-[REST API endpoint list](http://developer.couchbase.com/documentation/server/4.1/rest-api/rest-endpoints-all.html)
 
 [Create or Edit Bucket](http://developer.couchbase.com/documentation/server/4.1/rest-api/rest-bucket-create.html)
 
@@ -105,4 +108,4 @@ Create the container with environment variable `INDEX_MEMORY_QUOTA` (in MB)
 
 [Cluster and Bucket RAM quotas](http://developer.couchbase.com/documentation/server/4.1/architecture/cluster-ram-quotas.html)
 
-
+[Rebalancing nodes](http://developer.couchbase.com/documentation/server/4.1/rest-api/rest-cluster-rebalance.html)
