@@ -77,6 +77,13 @@ curl <ADMIN>:<PASSWORD> \
 DROP INDEX `travel-sample`.`def_airportname` USING GSI
 ```
 
+##### Query by key (port is usually 8093)
+
+```
+curl -u <BUCKET NAME>:<BUCKET PASSWORD> http://<HOSTNAME>:<PORT>/query/service \
+-d 'statement=SELECT * FROM `<BUCKET NAME>` USE KEYS ["<KEY>"]'
+```
+
 ### Prerequisites for Volume Mapping
 1. Comment out the `volumes` section in the `docker-compose.yml` (Put a `#` in the beginning of the line)
 2. Run `docker-compose up -d`
