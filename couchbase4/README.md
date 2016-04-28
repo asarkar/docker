@@ -78,14 +78,16 @@ DROP INDEX `travel-sample`.`def_airportname` USING GSI
 ```
 
 ### Prerequisites for Volume Mapping
-1. Run 'docker run -d dcs-artifactory.nuance.com:5002/couchbase4'
-2. Find out the container id using 'docker ps -a'. Call it '<CONTAINER ID>'
-3. `mkdir -p /opt/couchbase`
-4. `docker cp <CONTAINER ID>:/opt/couchbase/var /opt/couchbase/var`
-5. `chmod -R 777 /opt/couchbase`
-6. `docker rm -f <CONTAINER ID>`
-7. Run `docker-compose up -d`
-8. 'curl -L http://localhost:8091'
+1. Comment out the `volumes` section in the `docker-compose.yml` (Put a `#` in the beginning of the line)
+2. Run `docker-compose up -d`
+3. Find out the container id using `docker ps -a`. Call it \<CONTAINER ID\>
+4. `mkdir -p /opt/couchbase`
+5. `docker cp <CONTAINER ID>:/opt/couchbase/var /opt/couchbase/var`
+6. `chmod -R 777 /opt/couchbase`
+7. `docker rm -f <CONTAINER ID>`
+8. Uncomment `volumes` section in the `docker-compose.yml`
+9. Run `docker-compose up -d`
+10. `curl -L http://localhost:8091`
 
 ### Runtime Options while Creating a Docker Container
 
