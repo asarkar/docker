@@ -72,10 +72,15 @@ curl <ADMIN>:<PASSWORD> \
 
 #### Miscellaneous
 
+##### Create Primary Index
+1. Log onto the container.
+2. Start Couchbase interactive query shell using `/opt/couchbase/bin/cbq`
+3. `cbq> CREATE PRIMARY INDEX ON `travel-sample` USING GSI;`
+
 ##### Drop Index
-```
-DROP INDEX `travel-sample`.`def_airportname` USING GSI
-```
+1. Log onto the container.
+2. Start Couchbase interactive query shell using `/opt/couchbase/bin/cbq`
+3. `DROP INDEX `travel-sample`.`def_airportname` USING GSI;`
 
 ##### Query by key (port is usually 8093)
 
