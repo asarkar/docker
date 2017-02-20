@@ -1,3 +1,5 @@
+Kafka image with topic deletion enabled.
+
 ### Build image
 ```
 asarkar:~$ docker build -t asarkar/kafka --force-rm .
