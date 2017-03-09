@@ -21,7 +21,7 @@
    ```
    This creates a temp table named `metrics` that you can query. To learn more about Sprak SQL, see [this](http://spark.apache.org/docs/latest/sql-programming-guide.html).
 
-   > 1. Spark will automatically infer the schema. to see the schema, run `df.printSchema()`.
+   > 1. Spark will automatically infer the schema. To see the schema, run `df.printSchema()`.
    > 2. To pass arguments to the Scala compiler, for example to view deprecation warnings, go to http://localhost:8080/#/interpreter, click "edit", and add `-deprecation` to the `args` property.
    
 4. In another paragraph, start writing queries. For example:
