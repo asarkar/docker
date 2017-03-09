@@ -4,10 +4,10 @@
 
    ```
    docker run --rm --name=zeppelin -p 8080:8080 -p 8081:8081 \
-   -v metrics:/srv/metrics/:ro \
+   -v ~/metrics:/srv/metrics/:ro \
    -d asarkar/zeppelin:0.7.0
    ```
-   This exposes the Web UI on port 8080 and mounts local directory `metrics` to `/srv/metrics/` in the container.
+   This exposes the Web UI on port 8080 and mounts host directory `~/metrics` to `/srv/metrics/` in the container.
 
 2. Go to http://localhost:8080 and create a new note. Give it a name.
 
@@ -21,8 +21,9 @@
    ```
    This creates a temp table named `metrics` that you can query. To learn more about Sprak SQL, see [this](http://spark.apache.org/docs/latest/sql-programming-guide.html).
 
-   > Spark will automatically infer the schema. to see the schema, run `df.printSchema()`.
-
+   > 1. Spark will automatically infer the schema. to see the schema, run `df.printSchema()`.
+   > 2. To pass arguments to the Scala compiler, for example to view deprecation warnings, go to http://localhost:8080/#/interpreter, click "edit", and add `-deprecation` to the `args` property.
+   
 4. In another paragraph, start writing queries. For example:
 
    ```
@@ -33,3 +34,5 @@
    The output can be visualized in tabular or one of various graphical formats.
 
    > Column names with periods in them have to be escaped by enclosing in backticks.
+   
+   See [zappelin-learning](https://github.com/asarkar/spark/tree/master/zappelin-learning) project for examples.
