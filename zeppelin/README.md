@@ -35,4 +35,4 @@
 
    > Column names with periods in them have to be escaped by enclosing in backticks.
    
-   See [zeppelin-learning](https://github.com/asarkar/spark/tree/master/zeppelin-learning) project for examples.
+   See [actuator-meets-zeppelin](https://github.com/asarkar/spark/tree/master/actuator-meets-zeppelin) project for examples.
