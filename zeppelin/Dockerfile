@@ -1,4 +1,4 @@
-FROM openjdk:8u111-alpine
+FROM openjdk:8u121-jre-alpine
 
 ENV ZEPPELIN_VERSION=0.7.0 ZEPPELIN_HOME=/opt/zeppelin
 ENV PATH="${PATH}:$ZEPPELIN_HOME/bin"
