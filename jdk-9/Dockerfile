@@ -1,8 +1,6 @@
 FROM asarkar/alpine-plus
 
-ENV JAVA_HOME=/opt/java
-ENV PATH=${PATH}:$JAVA_HOME/bin
-ENV JSHELLEDITOR=vim
+ENV JAVA_HOME=/opt/java JSHELLEDITOR=vim  PATH=$PATH:$JAVA_HOME/bin
 
 WORKDIR /opt
 
