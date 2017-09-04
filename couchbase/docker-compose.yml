@@ -1,11 +1,13 @@
-db:
-  build: .
-  ports:
-    - 8091:8091
-    - 8092:8092
-    - 8093:8093
-    - 11210:11210
-  # environment:
-    # Can be a comma-separated list, possible values being combinations of gamesim-sample, beer-sample, travel-sample
-    # - SAMPLE_BUCKETS=travel-sample
-  
+version: '3'
+services:
+  couchbase:
+    build: .
+    image: asarkar/couchbase:debian-jessie
+    ports:
+      - "8091-8094:8091-8094"
+      - "11207:11207"
+      - "11210-11211:11210-11211"
+      - "18091-18093:18091-18093"
+    # environment:
+      # Can be a comma-separated list, possible values being combinations of gamesim-sample, beer-sample, travel-sample
+      # - SAMPLE_BUCKETS=travel-sample

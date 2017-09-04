@@ -1,7 +1,9 @@
-FROM abhijitsarkar/docker:debian-base
+FROM debian:jessie
+
+ENV DEBIAN_FRONTEND=noninteractive
 
 RUN apt-get update && \
-	apt-get install -y python-setuptools && \
+	apt-get install -y curl python-setuptools && \
   	easy_install supervisor
 
 RUN mkdir -p /var/log/supervisor && \
