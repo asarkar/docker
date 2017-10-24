@@ -1,0 +1,89 @@
+apiVersion: apps/v1beta1
+kind: StatefulSet
+metadata:
+  labels:
+    app: couchbase-node
+  name: couchbase-node
+spec:
+  podManagementPolicy: Parallel
+  updateStrategy:
+    type: RollingUpdate
+  selector:
+    matchLabels:
+      app: couchbase-node
+  serviceName: couchbase
+  template:
+    metadata:
+      labels:
+        app: couchbase-node
+    spec:
+      containers:
+      - env:
+        - name: DATA_MEMORY_QUOTA_MB
+          value: "256"
+        - name: INDEX_MEMORY_QUOTA_MB
+          value: "256"
+        - name: SEARCH_MEMORY_QUOTA_MB
+          value: "256"
+        - name: ADMIN_USER
+          value: admin
+        - name: ADMIN_PASSWORD
+          value: admin123
+        - name: SERVICENAME
+          value: couchbase
+        image: asarkar/couchbase
+        imagePullPolicy: Never
+        name: couchbase-node
+        ports:
+        - containerPort: 8091
+          name: couchbase
+          protocol: TCP
+        - containerPort: 8092
+          name: views
+          protocol: TCP
+        - containerPort: 8093
+          name: queries
+          protocol: TCP
+        - containerPort: 9100
+          name: int-idx-admin
+          protocol: TCP
+        - containerPort: 9101
+          name: int-idx-scan
+          protocol: TCP
+        - containerPort: 9102
+          name: int-idx-http
+          protocol: TCP
+        - containerPort: 9103
+          name: int-idx-bld1
+          protocol: TCP
+        - containerPort: 9104
+          name: int-idx-bld2
+          protocol: TCP
+        - containerPort: 9105
+          name: int-idx-maint
+          protocol: TCP
+        - containerPort: 9998
+          name: int-admin
+          protocol: TCP
+        - containerPort: 9999
+          name: int-gsi
+          protocol: TCP
+        - containerPort: 11207
+          name: smart-client1
+          protocol: TCP
+        - containerPort: 11209
+          name: int-bucket
+          protocol: TCP
+        - containerPort: 11210
+          name: smart-client2
+          protocol: TCP
+        - containerPort: 18091
+          name: ssl-admin
+          protocol: TCP
+        - containerPort: 18092
+          name: ssl-views
+          protocol: TCP
+        - containerPort: 18093
+          name: ssl-queries
+          protocol: TCP
+      restartPolicy: Always

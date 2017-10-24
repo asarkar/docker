@@ -1,3 +1,40 @@
+### Build Locally
+```
+$ docker build -t asarkar/couchbase docker
+```
+
+### Run Locally
+```
+$ docker run --rm \
+  --hostname=couchbase-node-0 \
+  --add-host couchbase:127.0.0.1 \
+  --add-host couchbase-node-0.couchbase:127.0.0.1 \
+  -e SERVICENAME=couchbase \
+  -e ADMIN_USER=admin \
+  -e ADMIN_PASSWORD=admin123 \
+  -e DATA_MEMORY_QUOTA_MB=256 \
+  -e INDEX_MEMORY_QUOTA_MB=256 \
+  -e SEARCH_MEMORY_QUOTA_MB=256 \
+  -p 8091-8094:8091-8094 \
+  -p 11210:11210 \
+  -it asarkar/couchbase
+```
+
+### Run Locally on Minikube
+```
+eval $(minikube docker-env)
+
+eval $(minikube docker-env -u)
+
+minikube dashboard
+
+minikube create -f <filename>
+
+kubectl logs couchbase-node-0
+
+kubectl run -i --tty --image busybox dns-test --restart=Never --rm /bin/sh
+```
+
 ### Useful REST API Calls
 
 #### Bucket Operations
