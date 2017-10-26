@@ -5,7 +5,8 @@ $ docker build -t asarkar/couchbase docker
 
 ### Run Locally
 ```
-$ docker run --rm \
+$ docker run -d --rm \
+  --name=couchbase \
   --hostname=couchbase-node-0 \
   --add-host couchbase:127.0.0.1 \
   --add-host couchbase-node-0.couchbase:127.0.0.1 \
