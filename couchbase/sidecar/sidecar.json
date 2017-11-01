@@ -1,0 +1,18 @@
+{
+	"kind": "Pod",
+	"apiVersion": "v1",
+	"metadata": {
+		"name": "$name",
+		"labels": {
+			"run": "$name"
+		}
+	},
+	"spec": {
+		"containers": [{
+			"name": "$name",
+			"image": "busybox",
+      "args":["tail", "-f", "/dev/null"],
+			"imagePullPolicy": "IfNotPresent"
+		}]
+	}
+}

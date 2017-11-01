@@ -1,0 +1,29 @@
+apiVersion: apps/v1beta2
+kind: Deployment
+metadata:
+  name: sidecar
+  labels:
+    app: sidecar
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: sidecar
+  template:
+    metadata:
+      labels:
+        app: sidecar
+    spec:
+      containers:
+      - name: sidecar
+        image: asarkar/sidecar
+        imagePullPolicy: Never
+        env:
+        - name: POD_NAME
+          value: sidecar
+        - name: SERVICE
+          value: kubernetes
+        - name: POD_NAMESPACE
+          valueFrom:
+            fieldRef:
+              fieldPath: metadata.namespace
