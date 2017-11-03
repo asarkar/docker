@@ -34,6 +34,8 @@ minikube create -f <filename>
 kubectl logs couchbase-node-0
 
 kubectl run -i --tty --image busybox dns-test --restart=Never --rm /bin/sh
+
+kubectl delete <kind> <name> --grace-period=0 --force
 ```
 
 ### Useful REST API Calls
