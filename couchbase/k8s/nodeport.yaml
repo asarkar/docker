@@ -6,11 +6,8 @@ metadata:
     app: couchbase
 spec:
   type: NodePort
-  ports:
-    - name: admin
-      protocol: TCP
-      port: 8091
-      targetPort: 8091
-      nodePort: 31000
   selector:
     app: couchbase-node
+  ports:
+    - name: admin
+      port: 8091

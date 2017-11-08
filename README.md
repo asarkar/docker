@@ -60,6 +60,7 @@ In Docker machine VM:
 `sudo umount <PATH TO SHARED DIR>`
 
 # Minikube Commands
+
 ```
 eval $(minikube docker-env)
 
@@ -67,7 +68,18 @@ eval $(minikube docker-env -u)
 
 minikube dashboard
 
-minikube create -f <filename>
+minikube addons list
+
+minikube addons enable ingress
+
+```
+
+c.f. [Setting up Ingress on Minikube](https://medium.com/@Oskarr3/setting-up-ingress-on-minikube-6ae825e98f82)
+
+# kubectl Commands
+
+```
+kubectl create -f <filename>
 
 kubectl logs couchbase-node-0
 

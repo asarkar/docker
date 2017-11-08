@@ -4,7 +4,16 @@ $ docker build -t asarkar/couchbase docker
 ```
 
 ### Run on Minikube
-Create `StatefulSet`, `Service` and `NodePort`. Access admin UI on Minikube public node IP and port 31000.
+```
+$ kubectl create -f k8s/service.yaml
+$ kubectl create -f k8s/statefulset.yaml
+$ kubectl create -f k8s/nodeport.yaml
+$ kubectl create -f k8s/ingress.yaml
+
+kubectl delete statefulset,svc,ing -l app=couchbase
+```
+
+Couchbase admin console is exposed on public node IP.
 
 ### Run Locally
 ```
