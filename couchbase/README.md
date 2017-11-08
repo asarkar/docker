@@ -3,6 +3,9 @@
 $ docker build -t asarkar/couchbase docker
 ```
 
+### Run on Minikube
+Create `StatefulSet`, `Service` and `NodePort`. Access admin UI on Minikube public node IP and port 31000.
+
 ### Run Locally
 ```
 $ docker run -d --rm \
@@ -19,23 +22,6 @@ $ docker run -d --rm \
   -p 8091-8094:8091-8094 \
   -p 11210:11210 \
   -it asarkar/couchbase
-```
-
-### Run Locally on Minikube
-```
-eval $(minikube docker-env)
-
-eval $(minikube docker-env -u)
-
-minikube dashboard
-
-minikube create -f <filename>
-
-kubectl logs couchbase-node-0
-
-kubectl run -i --tty --image busybox dns-test --restart=Never --rm /bin/sh
-
-kubectl delete <kind> <name> --grace-period=0 --force
 ```
 
 ### Useful REST API Calls

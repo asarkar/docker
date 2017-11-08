@@ -59,9 +59,25 @@ In Docker machine VM:
 
 `sudo umount <PATH TO SHARED DIR>`
 
-### Create a Patch:
+# Minikube Commands
+```
+eval $(minikube docker-env)
 
-`diff -abBu <ORIGINAL FILE> <MODIFIED FILE>`
+eval $(minikube docker-env -u)
+
+minikube dashboard
+
+minikube create -f <filename>
+
+kubectl logs couchbase-node-0
+
+kubectl run -i --tty --image busybox dns-test --restart=Never --rm /bin/sh
+
+kubectl delete <kind> <name> --grace-period=0 --force
+
+kubectl cluster-info
+
+```
 
 # Useful References
 
@@ -70,5 +86,3 @@ In Docker machine VM:
 [Docker - Beginner's tutorial](https://blog.talpor.com/2015/01/docker-beginners-tutorial)
 
 [Arun Gupta's Docker Images](https://github.com/arun-gupta/docker-images)
-
-
