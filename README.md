@@ -33,11 +33,8 @@
 
 `docker run -d -v ~/Workspace/docker/couchbase:/opt/couchbase/var -p 8091:8091 couchbase/server[:community]`
 
-### Stop and remove all containers:
-`docker ps -a | awk '!/CONTAINER/ {system("docker rm -f "$1)}'`
-
-### Delete orphan images:
-`docker images | awk '$1~/none/ {system("docker rmi -f "$3)}'`
+### Clean up:
+https://getintodevops.com/blog/keeping-the-whale-happy-how-to-clean-up-after-docker
 
 ### Free local disk space:
 `docker run --rm -v /var/run/docker.sock:/var/run/docker.sock:ro -v /var/lib/docker:/var/lib/docker martin/docker-cleanup-volumes`
