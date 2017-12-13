@@ -92,10 +92,19 @@ kubectl get po --field-selector=status.phase==Running -l app=k8s-watcher
 
 ```
 
+### Access Clusters Using the Kubernetes API
+
+```
+APISERVER=$(kubectl config view | grep server | cut -f 2- -d ":" | tr -d " ")
+TOKEN=$(kubectl describe secret $(kubectl get secrets | grep default | cut -f1 -d ' ') | grep -E '^token' | cut -f2 -d':' | tr -d '\t' | tr -d '[:space:]')
+curl $APISERVER/api/v1/namespaces/default/pods --header "Authorization: Bearer $TOKEN" --insecure
+```
+
+> If RBAC is enabled, instead of grepping the `default` service account token, grep the one that has access.
+
 # Useful References
 
 [Access Clusters Using the Kubernetes API](https://kubernetes.io/docs/tasks/administer-cluster/access-cluster-api/#without-kubectl-proxy)
-> If RBAC is enabled, instead of grepping the `default` service account token, grep the one that has access.
 
 [Developing Inside Docker Containers with OS X](pharnisc.github.io/2015/09/16/developing-inside-docker-containers-with-osx.html)
 
