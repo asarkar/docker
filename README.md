@@ -86,9 +86,14 @@ kubectl delete <kind> <name> --grace-period=0 --force
 
 kubectl cluster-info
 
+kubectl cp <namespace>/<pod>:<file> <local file>
+
 ```
 
 # Useful References
+
+[Access Clusters Using the Kubernetes API](https://kubernetes.io/docs/tasks/administer-cluster/access-cluster-api/#without-kubectl-proxy)
+> If RBAC is enabled, instead of grepping the `default` service account token, grep the one that has access.
 
 [Developing Inside Docker Containers with OS X](pharnisc.github.io/2015/09/16/developing-inside-docker-containers-with-osx.html)
 
