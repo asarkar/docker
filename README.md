@@ -88,6 +88,8 @@ kubectl cluster-info
 
 kubectl cp <namespace>/<pod>:<file> <local file>
 
+kubectl get po --field-selector=status.phase==Running -l app=k8s-watcher
+
 ```
 
 # Useful References
